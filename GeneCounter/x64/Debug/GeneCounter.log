@@ -1,0 +1,22 @@
+﻿  MyForm.cpp
+c:\opencv\build\include\opencv2\core\cvstd.hpp(575): warning C4793: 'cv::String::String': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\cuda.inl.hpp(105): warning C4793: 'cv::cuda::GpuMat::GpuMat': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\cuda.inl.hpp(395): warning C4793: 'cv::cuda::HostMem::HostMem': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\mat.inl.hpp(482): warning C4793: 'cv::Mat::Mat': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\mat.inl.hpp(803): warning C4793: 'cv::Mat::release': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\mat.inl.hpp(2118): warning C4793: 'cv::SparseMat::addref': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\mat.inl.hpp(3718): warning C4793: 'cv::UMat::addref': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\ptr.inl.hpp(67): warning C4793: 'cv::detail::PtrOwner::incRef': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\ptr.inl.hpp(72): warning C4793: 'cv::detail::PtrOwner::decRef': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+c:\opencv\build\include\opencv2\core\cvstd.hpp(657): warning C4793: 'cv::String::operator=': función compilada como nativa :
+  	Se encontró un elemento intrínseco no admitido en código administrado
+  GeneCounter.vcxproj -> C:\Users\vaks\Desktop\Desarrollo\Workspace\geneCounter\x64\Debug\GeneCounter.exe
