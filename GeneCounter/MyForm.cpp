@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
+#include <atlstr.h>
 
 using namespace cv;
 using namespace std;
@@ -27,3 +28,5 @@ int main(cli::array<System::String^>^ args)
 	Application::Run(%form);
 	return 0;
 }
+
+
