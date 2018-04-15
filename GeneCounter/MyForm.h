@@ -31,18 +31,13 @@ namespace GeneCounter {
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
-/*
-	class Picture {
-	public:
-		Mat img;
-		vector<Rect> bounding_rects;
-		void m_Renderizar(const char *cadena);
-		};
-*/
+
 	vector<Rect> bounding_rects;
 	int numeroGenes = 0;
 	int percentilSelecionado = 0;
 	boolean imgBounded = false;
+	vector<int> indiceASeparar;
+	vector<int> numPartesASeparar;
 
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -94,6 +89,10 @@ namespace GeneCounter {
 	private: System::Windows::Forms::Label^  LSeparar;
 	private: System::Windows::Forms::Label^  LSepararEn;
 	private: System::Windows::Forms::CheckBox^  ckBoxSeparar;
+	private: System::Windows::Forms::CheckBox^  ckBoxCuadros;
+	private: System::Windows::Forms::Label^  LejemUnir;
+	private: System::Windows::Forms::Label^  LejemBorrar;
+	private: System::Windows::Forms::Label^  LEjmSeparar;
 
 
 
@@ -137,6 +136,10 @@ namespace GeneCounter {
 			this->LSeparar = (gcnew System::Windows::Forms::Label());
 			this->LSepararEn = (gcnew System::Windows::Forms::Label());
 			this->ckBoxSeparar = (gcnew System::Windows::Forms::CheckBox());
+			this->ckBoxCuadros = (gcnew System::Windows::Forms::CheckBox());
+			this->LejemUnir = (gcnew System::Windows::Forms::Label());
+			this->LejemBorrar = (gcnew System::Windows::Forms::Label());
+			this->LEjmSeparar = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
 			this->SuspendLayout();
@@ -144,7 +147,7 @@ namespace GeneCounter {
 			// Lpercentil
 			// 
 			this->Lpercentil->AutoSize = true;
-			this->Lpercentil->Location = System::Drawing::Point(848, 365);
+			this->Lpercentil->Location = System::Drawing::Point(848, 63);
 			this->Lpercentil->Name = L"Lpercentil";
 			this->Lpercentil->Size = System::Drawing::Size(109, 13);
 			this->Lpercentil->TabIndex = 0;
@@ -180,7 +183,7 @@ namespace GeneCounter {
 			// trackBarPercentil
 			// 
 			this->trackBarPercentil->LargeChange = 10;
-			this->trackBarPercentil->Location = System::Drawing::Point(711, 381);
+			this->trackBarPercentil->Location = System::Drawing::Point(711, 79);
 			this->trackBarPercentil->Maximum = 100;
 			this->trackBarPercentil->Name = L"trackBarPercentil";
 			this->trackBarPercentil->Size = System::Drawing::Size(250, 45);
@@ -238,14 +241,14 @@ namespace GeneCounter {
 			// 
 			// textBoxUnion1
 			// 
-			this->textBoxUnion1->Location = System::Drawing::Point(851, 78);
+			this->textBoxUnion1->Location = System::Drawing::Point(853, 238);
 			this->textBoxUnion1->Name = L"textBoxUnion1";
 			this->textBoxUnion1->Size = System::Drawing::Size(42, 20);
 			this->textBoxUnion1->TabIndex = 16;
 			// 
 			// textBoxUnion2
 			// 
-			this->textBoxUnion2->Location = System::Drawing::Point(913, 78);
+			this->textBoxUnion2->Location = System::Drawing::Point(915, 238);
 			this->textBoxUnion2->Name = L"textBoxUnion2";
 			this->textBoxUnion2->Size = System::Drawing::Size(42, 20);
 			this->textBoxUnion2->TabIndex = 17;
@@ -253,7 +256,7 @@ namespace GeneCounter {
 			// LUnir
 			// 
 			this->LUnir->AutoSize = true;
-			this->LUnir->Location = System::Drawing::Point(848, 62);
+			this->LUnir->Location = System::Drawing::Point(850, 222);
 			this->LUnir->Name = L"LUnir";
 			this->LUnir->Size = System::Drawing::Size(29, 13);
 			this->LUnir->TabIndex = 18;
@@ -262,7 +265,7 @@ namespace GeneCounter {
 			// LCon
 			// 
 			this->LCon->AutoSize = true;
-			this->LCon->Location = System::Drawing::Point(910, 62);
+			this->LCon->Location = System::Drawing::Point(912, 222);
 			this->LCon->Name = L"LCon";
 			this->LCon->Size = System::Drawing::Size(28, 13);
 			this->LCon->TabIndex = 19;
@@ -271,7 +274,7 @@ namespace GeneCounter {
 			// ckBoxUnir
 			// 
 			this->ckBoxUnir->AutoSize = true;
-			this->ckBoxUnir->Location = System::Drawing::Point(744, 80);
+			this->ckBoxUnir->Location = System::Drawing::Point(746, 240);
 			this->ckBoxUnir->Name = L"ckBoxUnir";
 			this->ckBoxUnir->Size = System::Drawing::Size(83, 17);
 			this->ckBoxUnir->TabIndex = 20;
@@ -281,7 +284,7 @@ namespace GeneCounter {
 			// ckBoxBorrar
 			// 
 			this->ckBoxBorrar->AutoSize = true;
-			this->ckBoxBorrar->Location = System::Drawing::Point(744, 121);
+			this->ckBoxBorrar->Location = System::Drawing::Point(746, 307);
 			this->ckBoxBorrar->Name = L"ckBoxBorrar";
 			this->ckBoxBorrar->Size = System::Drawing::Size(90, 17);
 			this->ckBoxBorrar->TabIndex = 21;
@@ -290,21 +293,21 @@ namespace GeneCounter {
 			// 
 			// txtBoxBorrar
 			// 
-			this->txtBoxBorrar->Location = System::Drawing::Point(851, 119);
+			this->txtBoxBorrar->Location = System::Drawing::Point(853, 305);
 			this->txtBoxBorrar->Name = L"txtBoxBorrar";
 			this->txtBoxBorrar->Size = System::Drawing::Size(42, 20);
 			this->txtBoxBorrar->TabIndex = 22;
 			// 
 			// txtBoxSepararIndice
 			// 
-			this->txtBoxSepararIndice->Location = System::Drawing::Point(854, 178);
+			this->txtBoxSepararIndice->Location = System::Drawing::Point(856, 390);
 			this->txtBoxSepararIndice->Name = L"txtBoxSepararIndice";
 			this->txtBoxSepararIndice->Size = System::Drawing::Size(41, 20);
 			this->txtBoxSepararIndice->TabIndex = 23;
 			// 
 			// txtBoxSepararPartes
 			// 
-			this->txtBoxSepararPartes->Location = System::Drawing::Point(913, 178);
+			this->txtBoxSepararPartes->Location = System::Drawing::Point(915, 390);
 			this->txtBoxSepararPartes->Name = L"txtBoxSepararPartes";
 			this->txtBoxSepararPartes->Size = System::Drawing::Size(42, 20);
 			this->txtBoxSepararPartes->TabIndex = 24;
@@ -312,7 +315,7 @@ namespace GeneCounter {
 			// LSeparar
 			// 
 			this->LSeparar->AutoSize = true;
-			this->LSeparar->Location = System::Drawing::Point(851, 159);
+			this->LSeparar->Location = System::Drawing::Point(853, 371);
 			this->LSeparar->Name = L"LSeparar";
 			this->LSeparar->Size = System::Drawing::Size(47, 13);
 			this->LSeparar->TabIndex = 25;
@@ -321,7 +324,7 @@ namespace GeneCounter {
 			// LSepararEn
 			// 
 			this->LSepararEn->AutoSize = true;
-			this->LSepararEn->Location = System::Drawing::Point(913, 158);
+			this->LSepararEn->Location = System::Drawing::Point(915, 370);
 			this->LSepararEn->Name = L"LSepararEn";
 			this->LSepararEn->Size = System::Drawing::Size(23, 13);
 			this->LSepararEn->TabIndex = 26;
@@ -330,18 +333,69 @@ namespace GeneCounter {
 			// ckBoxSeparar
 			// 
 			this->ckBoxSeparar->AutoSize = true;
-			this->ckBoxSeparar->Location = System::Drawing::Point(744, 180);
+			this->ckBoxSeparar->Location = System::Drawing::Point(746, 392);
 			this->ckBoxSeparar->Name = L"ckBoxSeparar";
 			this->ckBoxSeparar->Size = System::Drawing::Size(96, 17);
 			this->ckBoxSeparar->TabIndex = 27;
 			this->ckBoxSeparar->Text = L"Separar índice";
 			this->ckBoxSeparar->UseVisualStyleBackColor = true;
 			// 
+			// ckBoxCuadros
+			// 
+			this->ckBoxCuadros->AutoSize = true;
+			this->ckBoxCuadros->Location = System::Drawing::Point(746, 176);
+			this->ckBoxCuadros->Name = L"ckBoxCuadros";
+			this->ckBoxCuadros->Size = System::Drawing::Size(183, 17);
+			this->ckBoxCuadros->TabIndex = 28;
+			this->ckBoxCuadros->Text = L"Recuadrar resultados detectados";
+			this->ckBoxCuadros->UseVisualStyleBackColor = true;
+			// 
+			// LejemUnir
+			// 
+			this->LejemUnir->AutoSize = true;
+			this->LejemUnir->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->LejemUnir->ForeColor = System::Drawing::Color::Crimson;
+			this->LejemUnir->Location = System::Drawing::Point(767, 264);
+			this->LejemUnir->Name = L"LejemUnir";
+			this->LejemUnir->Size = System::Drawing::Size(131, 13);
+			this->LejemUnir->TabIndex = 29;
+			this->LejemUnir->Text = L"Ej:  Unir [ 1 ]  Con [ 2;3;4; ]";
+			// 
+			// LejemBorrar
+			// 
+			this->LejemBorrar->AutoSize = true;
+			this->LejemBorrar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->LejemBorrar->ForeColor = System::Drawing::Color::Crimson;
+			this->LejemBorrar->Location = System::Drawing::Point(767, 328);
+			this->LejemBorrar->Name = L"LejemBorrar";
+			this->LejemBorrar->Size = System::Drawing::Size(94, 13);
+			this->LejemBorrar->TabIndex = 30;
+			this->LejemBorrar->Text = L"Ej: [ 1; ]  ó  [2;3;4;]";
+			this->LejemBorrar->TextAlign = System::Drawing::ContentAlignment::BottomCenter;
+			// 
+			// LEjmSeparar
+			// 
+			this->LEjmSeparar->AutoSize = true;
+			this->LEjmSeparar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->LEjmSeparar->ForeColor = System::Drawing::Color::Crimson;
+			this->LEjmSeparar->Location = System::Drawing::Point(770, 416);
+			this->LEjmSeparar->Name = L"LEjmSeparar";
+			this->LEjmSeparar->Size = System::Drawing::Size(120, 13);
+			this->LEjmSeparar->TabIndex = 31;
+			this->LEjmSeparar->Text = L"Ej: Separar [ 1 ]  En [ 2 ]";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(973, 525);
+			this->Controls->Add(this->LEjmSeparar);
+			this->Controls->Add(this->LejemBorrar);
+			this->Controls->Add(this->LejemUnir);
+			this->Controls->Add(this->ckBoxCuadros);
 			this->Controls->Add(this->ckBoxSeparar);
 			this->Controls->Add(this->LSepararEn);
 			this->Controls->Add(this->LSeparar);
@@ -366,7 +420,6 @@ namespace GeneCounter {
 			this->Controls->Add(this->Lpercentil);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
-			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->EndInit();
 			this->ResumeLayout(false);
@@ -374,6 +427,22 @@ namespace GeneCounter {
 
 		}
 #pragma endregion
+		int getRandomNumber(int min, int max) {
+			int range = max - min + 1;
+			int num = rand() % range + min;
+			return num;
+		}
+		int getIndex(vector<int> vec, int value) {
+			auto it = std::find(vec.begin(), vec.end(), value);
+			if (it == vec.end())
+			{
+				return -1;
+			}
+			else
+			{
+				return std::distance(vec.begin(), it);
+			}
+		}
 		bool Contains(vector<int> Vec, int Element)
 		{
 			if (std::find(Vec.begin(), Vec.end(), Element) != Vec.end())
@@ -387,27 +456,6 @@ namespace GeneCounter {
 			int posicionPercentil = (tamañoMuestra*percentil) / 100;
 			return muestra.at(posicionPercentil);
 		}
-
-		Mat saturate(Mat img) {
-			double alpha = 2.0; /*< Simple contrast control */
-			int beta = 10;       /*< Simple brightness control */
-
-			Mat new_image = Mat::zeros(img.size(), img.type());
-			// << " Basic Linear Transforms " << endl;
-			//cout << "-------------------------" << endl;
-			//cout << "* Enter the alpha value [1.0-3.0]: "; cin >> alpha;
-			//cout << "* Enter the beta value [0-100]: ";    cin >> beta;
-			for (int y = 0; y < img.rows; y++) {
-				for (int x = 0; x < img.cols; x++) {
-					for (int c = 0; c < 3; c++) {
-						new_image.at<Vec3b>(y, x)[c] =
-							saturate_cast<uchar>(alpha*(img.at<Vec3b>(y, x)[c]) + beta);
-					}
-				}
-			}
-			return new_image;
-		}
-
 		Mat negativo(Mat m) {
 			int colores = m.channels();
 			if (colores == 3) {
@@ -435,29 +483,22 @@ namespace GeneCounter {
 			}
 			return m;
 		}
-		Mat contarGenes(Mat src, vector<Rect> bounding_rects) {
+		Mat contarGenes(Mat src) {
 			Rect bounding_rect;
 			numeroGenes = 1;
 			for (int i = 0; i < bounding_rects.size(); i++) // iterate through each bound. 
 			{
-				bounding_rect = bounding_rects.at(i); //Bound and Draw rectangle each object which detected at the end on src(original image)
-				putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
-				numeroGenes++;
-				
-			}
-			return src;
-		}
-		Mat contarGenes(Mat src, vector<int> separar, vector<Rect> bounding_rects) {
-			Rect bounding_rect;
-			numeroGenes = 1;
-			for (int i = 0; i < bounding_rects.size(); i++) // iterate through each bound. 
-			{
-				bounding_rect = bounding_rects.at(i); //Bound and Draw rectangle each object which detected at the end on src(original image)
-				if (separar.at(0) == numeroGenes)
+				bounding_rect = bounding_rects.at(i);
+				if (ckBoxCuadros->Checked) {
+					rectangle(src, bounding_rect, Scalar(0, 255, 0), 3, 8, 0);
+				}
+
+				if (Contains(indiceASeparar,numeroGenes))
 				{
-					for (int j = 0; j < separar.at(1); j++)
+					int index = getIndex(indiceASeparar, numeroGenes);
+					for (int j = 0; j < numPartesASeparar.at(index) ; j++)
 					{
-						putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height - i * 10), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 255, 0), 2);
+						putText(src, to_string(numeroGenes), Point2f(bounding_rect.x + j*20 , bounding_rect.y + j*30), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 255, 0), 2);
 						numeroGenes++;
 					}
 				}
@@ -466,6 +507,7 @@ namespace GeneCounter {
 					numeroGenes++;
 				}
 			}
+			numeroGenes--;
 			return src;
 		}
 		vector<Rect> getBoundings(Mat src) {
@@ -512,8 +554,6 @@ namespace GeneCounter {
 			}
 			return bounding_rects;
 		}
-	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-	}
 	void MarshalString(System::String^ s, string& os) {
 		using namespace Runtime::InteropServices;
 		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
@@ -526,7 +566,6 @@ namespace GeneCounter {
 			std::string texto;
 			std::string delimiter = ";";
 			System::String^ rawBorrarText = txtBoxBorrar->Text;
-//			System::String::Concat(rawBorrarText, ";");
 			MarshalString(rawBorrarText, texto);
 			size_t pos = 0;
 			std::string token;
@@ -541,7 +580,55 @@ namespace GeneCounter {
 		}
 		return borrar;
 	}
-	vector<Rect> deleteBoundsChosed(vector<Rect> bounding_rects, vector<int> borrar) {
+	vector<int> getUnirList() {
+		vector<int> unir;
+		if (ckBoxUnir->Checked) {
+			std::string texto;
+			std::string delimiter = ";";
+			System::String^ rawBorrarText = textBoxUnion2->Text;
+			MarshalString(rawBorrarText, texto);
+			size_t pos = 0;
+			std::string token;
+			while ((pos = texto.find(delimiter)) != std::string::npos) {
+				token = texto.substr(0, pos);
+				unir.push_back(std::stoi(token));
+				texto.erase(0, pos + delimiter.length());
+			}
+		}
+		else {
+			unir.push_back(0);
+		}
+		return unir;
+	}
+	void setSeparacion() {
+		if (ckBoxSeparar->Checked) {
+			std::string delimiter = ";";
+			System::String^ numPartes = txtBoxSepararPartes->Text;
+			std::string stdNumPartes, stdIndiceASeparar;
+			System::String^ indiceSeparar = txtBoxSepararIndice->Text;
+			MarshalString(numPartes, stdNumPartes);
+			MarshalString(indiceSeparar, stdIndiceASeparar);
+			size_t pos = 0;
+			std::string token;
+
+			while ((pos = stdNumPartes.find(delimiter)) != std::string::npos) {
+				token = stdNumPartes.substr(0, pos);
+				numPartesASeparar.push_back(std::stoi(token));
+				stdNumPartes.erase(0, pos + delimiter.length());
+			}
+			pos = 0;
+			while ((pos = stdIndiceASeparar.find(delimiter)) != std::string::npos) {
+				token = stdIndiceASeparar.substr(0, pos);
+				indiceASeparar.push_back(std::stoi(token));
+				stdIndiceASeparar.erase(0, pos + delimiter.length());
+			}
+		}
+		else {
+			numPartesASeparar.push_back(0);
+			indiceASeparar.push_back(0);
+		}
+	}
+	vector<Rect> deleteBoundsChosed(vector<int> borrar) {
 		vector<Rect> newBounding;
 		for (int i = 0; i < bounding_rects.size(); i++) 
 		{
@@ -555,45 +642,45 @@ namespace GeneCounter {
 	}
 	private: System::Void btnContar_Click(System::Object^  sender, System::EventArgs^  e) {
 		Mat img = imread("./img/2.bmp", CV_LOAD_IMAGE_COLOR);
-		vector<int> borrar;
-		vector<int> uniones;
-		vector<int> separaciones;
-		uniones.push_back(0);
-		separaciones.push_back(0);
-		separaciones.push_back(0);
-		borrar = getBorrarList();
+		vector<int> borrar, uniones;
 
 		if (!imgBounded)
 		{
 			bounding_rects = getBoundings(img);
 			imgBounded = true;
 		}
-		if (ckBoxBorrar->Checked) {
-			bounding_rects = deleteBoundsChosed(bounding_rects, borrar);
-			img = contarGenes(img, separaciones, bounding_rects);
+		if (ckBoxBorrar->Checked)
+		{
+			borrar = getBorrarList();
+			bounding_rects = deleteBoundsChosed(borrar);
 		}
-		else {
-			img = contarGenes(img, bounding_rects);
+		if (ckBoxUnir->Checked) 
+		{
+			uniones = getUnirList();
+			bounding_rects = deleteBoundsChosed(uniones);
+		}
+		if (ckBoxSeparar->Checked) 
+		{
+			setSeparacion();
 		}
 
+		img = contarGenes(img);
 		showImage(img);
 
 	}
 	private: System::Void OntrackBarPercentil_Scroll(System::Object^  sender, System::EventArgs^  e) {
 		Lpercentil->Text = System::String::Concat("Percentil empleado: ", trackBarPercentil->Value);
+		imgBounded = false;
 		percentilSelecionado = trackBarPercentil->Value;
 		if (percentilSelecionado == 100) {
 			percentilSelecionado = 99;
 		}
 	}
 	void showImage(Mat img) {
-	int max = 1000;
-	int min = 0;
-	int range = max - min + 1;
-	int num = rand() % range + min;
-	imwrite("./img/temp/temp" + to_string(numeroGenes) + "_" + to_string(num) + ".bmp", img);
-	imgBox->Image = System::Drawing::Image::FromFile(System::String::Concat("./img/temp/temp", numeroGenes, "_", num, ".bmp"));
-	LNuemroTotal->Text = System::String::Concat("", numeroGenes);
+		int num = getRandomNumber(0,1000);
+		imwrite("./img/temp/temp" + to_string(numeroGenes) + "_" + to_string(num) + ".bmp", img);
+		imgBox->Image = System::Drawing::Image::FromFile(System::String::Concat("./img/temp/temp", numeroGenes, "_", num, ".bmp"));
+		LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 				 /*
 				 imgBox->Image = gcnew Bitmap(img.size().width,
 											  img.size().height,

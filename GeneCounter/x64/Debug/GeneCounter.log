@@ -1,8 +1,8 @@
 ﻿  MyForm.cpp
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(386): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(496): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(516): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(521): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(443): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(455): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(501): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(506): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 c:\opencv\build\include\opencv2\core\cvstd.hpp(575): warning C4793: 'cv::String::String': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\cuda.inl.hpp(105): warning C4793: 'cv::cuda::GpuMat::GpuMat': función compilada como nativa :
@@ -10,10 +10,6 @@ c:\opencv\build\include\opencv2\core\cuda.inl.hpp(105): warning C4793: 'cv::cuda
 c:\opencv\build\include\opencv2\core\cuda.inl.hpp(395): warning C4793: 'cv::cuda::HostMem::HostMem': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\mat.inl.hpp(482): warning C4793: 'cv::Mat::Mat': función compilada como nativa :
-  	Se encontró un elemento intrínseco no admitido en código administrado
-c:\opencv\build\include\opencv2\core\fast_math.hpp(105): warning C4793: '`anonymous namespace'::cvRound': función compilada como nativa :
-  	Se encontró un elemento intrínseco no admitido en código administrado
-c:\opencv\build\include\opencv2\core\fast_math.hpp(106): warning C4793: '`anonymous namespace'::cvRound': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\fast_math.hpp(193): warning C4793: '`anonymous namespace'::cvRound': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
