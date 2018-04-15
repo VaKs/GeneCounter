@@ -435,73 +435,17 @@ namespace GeneCounter {
 			}
 			return m;
 		}
-
-		Mat contarGenes(Mat src) {
-			vector<vector<cv::Point>> contours;
-			vector<Vec4i> hierarchy;
+		Mat contarGenes(Mat src, vector<Rect> bounding_rects) {
 			Rect bounding_rect;
-			Mat dst, bin, img_gray;
-
-			//Mat src = imread("./img/4.bmp", CV_LOAD_IMAGE_COLOR); // reads image from file
-
-			cvtColor(src, img_gray, CV_BGR2GRAY);  // converts image from rgb(src) to gray level (dst) 
-
-												   //convert to B&W
-			dst = img_gray > 128;
-
-
-			dst = negativo(dst);
-
-			//namedWindow("128", CV_WINDOW_NORMAL);
-			//imshow("128", dst);
-
-			threshold(dst, bin, 20, 255, THRESH_BINARY); // Tresholds image with level = 40 from gray level(dst) to binary (bin)
-			findContours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); // finds contours on bin image
-
-
-			Scalar color(255, 255, 255);
-			for (int i = 0; i < contours.size(); i++) // iterate through each contour. 
-			{
-				if ((contourArea(contours[i], false)) > 100) { // if counter area >100 pixel draw it on ero which is new image variable
-					drawContours(bin, contours, i, color, CV_FILLED, 8, hierarchy); //Draw contours on itself as filled
-
-				}
-			}
-
-			findContours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
-
-			vector<double> areas;
-			//vector<double> longitudes;
-			int area;
-			//int longitud;
-			for (int i = 0; i < contours.size(); i++) // iterate through each contour. 
-			{
-				bounding_rect = boundingRect(contours[i]); //Bound and Draw rectangle each object which detected at the end on src(original image)
-				area = bounding_rect.height*bounding_rect.width;
-				areas.push_back(area);
-				//longitud = 2 * (bounding_rect.height + bounding_rect.width);
-				//longitudes.push_back(longitud);
-			}
-
-			double percentil = calcularPercentil(percentilSelecionado, areas);
-
 			numeroGenes = 1;
-			for (int i = 0; i < contours.size(); i++) // iterate through each contour. 
+			for (int i = 0; i < bounding_rects.size(); i++) // iterate through each bound. 
 			{
-				bounding_rect = boundingRect(contours[i]); //Bound and Draw rectangle each object which detected at the end on src(original image)
-				area = bounding_rect.height*bounding_rect.width;
-				//longitud = 2 * (bounding_rect.height + bounding_rect.width);
-				if (area > percentil) {
-					rectangle(src, bounding_rect, Scalar(0, 255, 0), 3, 8, 0);
-					putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
-					//putText(src, to_string(longitud), Point2f(bounding_rect.x, bounding_rect.y+30), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 255, 0), 1);
-					//putText(src, to_string(area), Point2f(bounding_rect.x, bounding_rect.y + 50), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(255, 255, 0), 1);
-					numeroGenes++;
-				}
+				bounding_rect = bounding_rects.at(i); //Bound and Draw rectangle each object which detected at the end on src(original image)
+				putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
+				numeroGenes++;
+				
 			}
-
 			return src;
-
 		}
 		Mat contarGenes(Mat src, vector<int> separar, vector<Rect> bounding_rects) {
 			Rect bounding_rect;
@@ -570,49 +514,45 @@ namespace GeneCounter {
 		}
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
-			 void MarshalString(System::String^ s, string& os) {
-				 using namespace Runtime::InteropServices;
-				 const char* chars =
-					 (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-				 os = chars;
-				 Marshal::FreeHGlobal(IntPtr((void*)chars));
-			 }
-			 vector<int> getBorrarList() {
-				 vector<int> borrar;
-				 if (ckBoxBorrar->Checked) {
-
-					 std::string texto;
-					 std::string delimiter = ";";
-					 System::String^ rawBorrarText = txtBoxBorrar->Text;
-					 //			System::String::Concat(rawBorrarText, ";");
-					 MarshalString(rawBorrarText, texto);
-
-
-					 size_t pos = 0;
-					 std::string token;
-					 while ((pos = texto.find(delimiter)) != std::string::npos) {
-						 token = texto.substr(0, pos);
-						 borrar.push_back(std::stoi(token));
-						 texto.erase(0, pos + delimiter.length());
-					 }
-				 }
-				 else {
-					 borrar.push_back(0);
-				 }
-				 return borrar;
-			 }
-			 vector<Rect> deleteBoundsChosed(vector<Rect> bounding_rects, vector<int> borrar) {
-				 vector<Rect> newBounding;
-				 for (int i = 0; i < bounding_rects.size(); i++) {
-					 if (std::find(borrar.begin(), borrar.end(), i + 1) != borrar.end())
-					 {
-					 }
-					 else {
-						 newBounding.push_back(bounding_rects.at(i));
-					 }
-				 }
-				 return newBounding;
-			 }
+	void MarshalString(System::String^ s, string& os) {
+		using namespace Runtime::InteropServices;
+		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+		os = chars;
+		Marshal::FreeHGlobal(IntPtr((void*)chars));
+	}
+	vector<int> getBorrarList() {
+		vector<int> borrar;
+		if (ckBoxBorrar->Checked) {
+			std::string texto;
+			std::string delimiter = ";";
+			System::String^ rawBorrarText = txtBoxBorrar->Text;
+//			System::String::Concat(rawBorrarText, ";");
+			MarshalString(rawBorrarText, texto);
+			size_t pos = 0;
+			std::string token;
+			while ((pos = texto.find(delimiter)) != std::string::npos) {
+				token = texto.substr(0, pos);
+				borrar.push_back(std::stoi(token));
+				texto.erase(0, pos + delimiter.length());
+			}
+		}
+		else {
+			borrar.push_back(0);
+		}
+		return borrar;
+	}
+	vector<Rect> deleteBoundsChosed(vector<Rect> bounding_rects, vector<int> borrar) {
+		vector<Rect> newBounding;
+		for (int i = 0; i < bounding_rects.size(); i++) 
+		{
+			if (std::find(borrar.begin(), borrar.end(), i + 1) != borrar.end())
+			{ }
+			else {
+				newBounding.push_back(bounding_rects.at(i));
+			}
+		}
+		return newBounding;
+	}
 	private: System::Void btnContar_Click(System::Object^  sender, System::EventArgs^  e) {
 		Mat img = imread("./img/2.bmp", CV_LOAD_IMAGE_COLOR);
 		vector<int> borrar;
@@ -633,7 +573,7 @@ namespace GeneCounter {
 			img = contarGenes(img, separaciones, bounding_rects);
 		}
 		else {
-			img = contarGenes(img);
+			img = contarGenes(img, bounding_rects);
 		}
 
 		showImage(img);
@@ -646,15 +586,14 @@ namespace GeneCounter {
 			percentilSelecionado = 99;
 		}
 	}
-			 void showImage(Mat img) {
-				 int max = 1000;
-				 int min = 0;
-				 int range = max - min + 1;
-				 int num = rand() % range + min;
-
-				 imwrite("./img/temp/temp" + to_string(numeroGenes) + "_" + to_string(num) + ".bmp", img);
-				 imgBox->Image = System::Drawing::Image::FromFile(System::String::Concat("./img/temp/temp", numeroGenes, "_", num, ".bmp"));
-				 LNuemroTotal->Text = System::String::Concat("", numeroGenes);
+	void showImage(Mat img) {
+	int max = 1000;
+	int min = 0;
+	int range = max - min + 1;
+	int num = rand() % range + min;
+	imwrite("./img/temp/temp" + to_string(numeroGenes) + "_" + to_string(num) + ".bmp", img);
+	imgBox->Image = System::Drawing::Image::FromFile(System::String::Concat("./img/temp/temp", numeroGenes, "_", num, ".bmp"));
+	LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 				 /*
 				 imgBox->Image = gcnew Bitmap(img.size().width,
 											  img.size().height,
@@ -662,10 +601,10 @@ namespace GeneCounter {
 											  Imaging::PixelFormat::Format24bppRgb,
 											  (IntPtr)img.data);
 				 */
-			 }
-			 void saveImage(string name, Mat img) {
-				 imwrite("./img/contadas/" + name + ".bmp", img);
-			 }
+	}
+	void saveImage(string name, Mat img) {
+		imwrite("./img/contadas/" + name + ".bmp", img);
+	}
 
 	private: System::Void btnGuardar_Click(System::Object^  sender, System::EventArgs^  e) {
 		Mat img = imread("./img/5.bmp", CV_LOAD_IMAGE_COLOR);
