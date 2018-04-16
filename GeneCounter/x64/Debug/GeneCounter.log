@@ -1,8 +1,8 @@
 ﻿  MyForm.cpp
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(465): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(477): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(523): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(528): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(478): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(490): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(536): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(541): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 c:\opencv\build\include\opencv2\core\cvstd.hpp(575): warning C4793: 'cv::String::String': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\cuda.inl.hpp(105): warning C4793: 'cv::cuda::GpuMat::GpuMat': función compilada como nativa :
@@ -27,4 +27,5 @@ c:\opencv\build\include\opencv2\core\ptr.inl.hpp(72): warning C4793: 'cv::detail
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\cvstd.hpp(657): warning C4793: 'cv::String::operator=': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
   GeneCounter.vcxproj -> C:\Users\vaks\Desktop\Desarrollo\Workspace\geneCounter\x64\Debug\GeneCounter.exe
