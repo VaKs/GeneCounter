@@ -26,12 +26,19 @@ namespace GeneCounter {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 	using namespace msclr::interop;
 
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
 
+	string rutaImagen = "";
+	string ruta="";
+	string rutaTemp = "";
+	string rutaContadas = ""; 
+	string directorio = "";
+	string nombreArchivo = "";
 	vector<Rect> bounding_rects;
 	int numeroGenes = 0;
 	int percentilSelecionado = 0;
@@ -280,6 +287,7 @@ namespace GeneCounter {
 			this->ckBoxUnir->TabIndex = 20;
 			this->ckBoxUnir->Text = L"Unir índices";
 			this->ckBoxUnir->UseVisualStyleBackColor = true;
+			this->ckBoxUnir->CheckedChanged += gcnew System::EventHandler(this, &MyForm::ckBoxUnir_CheckedChanged);
 			// 
 			// ckBoxBorrar
 			// 
@@ -290,6 +298,7 @@ namespace GeneCounter {
 			this->ckBoxBorrar->TabIndex = 21;
 			this->ckBoxBorrar->Text = L"Borrar índice:";
 			this->ckBoxBorrar->UseVisualStyleBackColor = true;
+			this->ckBoxBorrar->CheckedChanged += gcnew System::EventHandler(this, &MyForm::ckBoxBorrar_CheckedChanged);
 			// 
 			// txtBoxBorrar
 			// 
@@ -339,6 +348,7 @@ namespace GeneCounter {
 			this->ckBoxSeparar->TabIndex = 27;
 			this->ckBoxSeparar->Text = L"Separar índice";
 			this->ckBoxSeparar->UseVisualStyleBackColor = true;
+			this->ckBoxSeparar->CheckedChanged += gcnew System::EventHandler(this, &MyForm::ckBoxSeparar_CheckedChanged);
 			// 
 			// ckBoxCuadros
 			// 
@@ -427,6 +437,8 @@ namespace GeneCounter {
 
 		}
 #pragma endregion
+		DirectoryInfo^ diTemp;
+
 		int getRandomNumber(int min, int max) {
 			int range = max - min + 1;
 			int num = rand() % range + min;
@@ -641,7 +653,7 @@ namespace GeneCounter {
 		return newBounding;
 	}
 	private: System::Void btnContar_Click(System::Object^  sender, System::EventArgs^  e) {
-		Mat img = imread("./img/2.bmp", CV_LOAD_IMAGE_COLOR);
+		Mat img = imread(rutaImagen, CV_LOAD_IMAGE_COLOR);
 		vector<int> borrar, uniones;
 
 		if (!imgBounded)
@@ -678,8 +690,9 @@ namespace GeneCounter {
 	}
 	void showImage(Mat img) {
 		int num = getRandomNumber(0,1000);
-		imwrite("./img/temp/temp" + to_string(numeroGenes) + "_" + to_string(num) + ".bmp", img);
-		imgBox->Image = System::Drawing::Image::FromFile(System::String::Concat("./img/temp/temp", numeroGenes, "_", num, ".bmp"));
+		string archivo = rutaTemp + "temp" + to_string(numeroGenes) + "_" + to_string(num) + nombreArchivo;
+		imwrite(archivo, img);
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(archivo.c_str()));
 		LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 				 /*
 				 imgBox->Image = gcnew Bitmap(img.size().width,
@@ -689,19 +702,85 @@ namespace GeneCounter {
 											  (IntPtr)img.data);
 				 */
 	}
-	void saveImage(string name, Mat img) {
-		imwrite("./img/contadas/" + name + ".bmp", img);
+	void saveImage(Mat img) {
+		imwrite(rutaContadas + nombreArchivo , img);
+		diTemp->Delete(true);
 	}
 
 	private: System::Void btnGuardar_Click(System::Object^  sender, System::EventArgs^  e) {
-		Mat img = imread("./img/5.bmp", CV_LOAD_IMAGE_COLOR);
+		Mat img = imread(rutaImagen, CV_LOAD_IMAGE_COLOR);
 		img = contarGenes(img);
-		saveImage("contada1", img);
+		saveImage(img);
 	}
-
+			 
 	private: System::Void btnMostrar_Click(System::Object^  sender, System::EventArgs^  e) {
+		System::String^ rawRuta = txtBoxRuta->Text;
+		System::String^ fileName = Path::GetFileName(rawRuta);
+		System::String^ path = rawRuta->Substring(0,(rawRuta->Length)-(fileName->Length));
+		LrutaDir->Text= System::String::Concat("ruta: ", path," archivo: ",fileName);
+
+		MarshalString(rawRuta, rutaImagen);
+		MarshalString(path, ruta);
+		MarshalString(fileName, nombreArchivo);
+
+		diTemp = Directory::CreateDirectory(System::String::Concat(path,"temp"));
+		DirectoryInfo^ diContadas = Directory::CreateDirectory(System::String::Concat(path, "contadas"));
+
+		rutaTemp = ruta + "temp\\";
+		rutaContadas = ruta + "contadas\\";
+
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
+
+//		DirectoryInfo^ dirInfo = gcnew DirectoryInfo(path);
+/*
+		if (dirInfo->Exists)    // make sure directory exists
+		{
+			array<System::IO::FileInfo^> ^files = dirInfo->GetFileSystemInfos();
+			for (int i = 0; i < files->Length; i++)
+			{
+				String ^ currFileName = files[i]->ToString();
+				if (String::Compare(currFileName, fileName, true) == 0)
+				{
+					foundFiles->Add(files[i]);
+				}
+		}
+*/
+//		diTemp->Delete();
 
 	}
-	};
+	private: System::Void ckBoxSeparar_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		if (ckBoxSeparar->Checked == true) {
+			ckBoxBorrar->Checked = false;
+			ckBoxBorrar->Enabled = false;
+			ckBoxUnir->Checked = false;
+			ckBoxUnir->Enabled = false;
+		}
+		else 
+		{
+			ckBoxBorrar->Enabled = true;
+			ckBoxUnir->Enabled = true;
+		}
+	}
+	private: System::Void ckBoxBorrar_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		if (ckBoxBorrar->Checked == true) {
+			ckBoxSeparar->Checked = false;
+			ckBoxSeparar->Enabled = false;
+		}
+		else
+		{
+			ckBoxSeparar->Enabled = true;
+		}
+	}
+	private: System::Void ckBoxUnir_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		if (ckBoxUnir->Checked == true) {
+			ckBoxSeparar->Checked = false;
+			ckBoxSeparar->Enabled = false;
+		}
+		else
+		{
+			ckBoxSeparar->Enabled = true;
+		}
+	}
+};
 }
 
