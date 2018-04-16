@@ -3,3 +3,9 @@
 Debug/GeneCounter.exe
 GeneCounter/img/temp/
 GeneCounter/img/contadas/
+x64/Release/GeneCounter.exe
+GeneCounterSetUp/Release/setup.exe
+GeneCounterSetUp/Release/GeneCounterSetUp.msi
+GeneCounterSetUp/Debug/setup.exe
+GeneCounterSetUp/Debug/GeneCounterSetUp.msi
+x64/Release/GeneCounter.exe.metagen
