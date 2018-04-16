@@ -32,7 +32,7 @@ namespace GeneCounter {
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
-
+	string archivoActual = "";
 	string rutaImagen = "";
 	string ruta="";
 	string rutaTemp = "";
@@ -120,7 +120,6 @@ namespace GeneCounter {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->Lpercentil = (gcnew System::Windows::Forms::Label());
 			this->txtBoxRuta = (gcnew System::Windows::Forms::TextBox());
 			this->btnContar = (gcnew System::Windows::Forms::Button());
@@ -169,6 +168,7 @@ namespace GeneCounter {
 			// 
 			// btnContar
 			// 
+			this->btnContar->Enabled = false;
 			this->btnContar->Location = System::Drawing::Point(886, 480);
 			this->btnContar->Name = L"btnContar";
 			this->btnContar->Size = System::Drawing::Size(75, 23);
@@ -179,7 +179,6 @@ namespace GeneCounter {
 			// 
 			// imgBox
 			// 
-			this->imgBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"imgBox.Image")));
 			this->imgBox->Location = System::Drawing::Point(12, 79);
 			this->imgBox->Name = L"imgBox";
 			this->imgBox->Size = System::Drawing::Size(693, 414);
@@ -189,6 +188,7 @@ namespace GeneCounter {
 			// 
 			// trackBarPercentil
 			// 
+			this->trackBarPercentil->Enabled = false;
 			this->trackBarPercentil->LargeChange = 10;
 			this->trackBarPercentil->Location = System::Drawing::Point(711, 79);
 			this->trackBarPercentil->Maximum = 100;
@@ -219,6 +219,7 @@ namespace GeneCounter {
 			// 
 			// btnGuardar
 			// 
+			this->btnGuardar->Enabled = false;
 			this->btnGuardar->Location = System::Drawing::Point(805, 480);
 			this->btnGuardar->Name = L"btnGuardar";
 			this->btnGuardar->Size = System::Drawing::Size(75, 23);
@@ -248,6 +249,7 @@ namespace GeneCounter {
 			// 
 			// textBoxUnion1
 			// 
+			this->textBoxUnion1->Enabled = false;
 			this->textBoxUnion1->Location = System::Drawing::Point(853, 238);
 			this->textBoxUnion1->Name = L"textBoxUnion1";
 			this->textBoxUnion1->Size = System::Drawing::Size(42, 20);
@@ -255,6 +257,7 @@ namespace GeneCounter {
 			// 
 			// textBoxUnion2
 			// 
+			this->textBoxUnion2->Enabled = false;
 			this->textBoxUnion2->Location = System::Drawing::Point(915, 238);
 			this->textBoxUnion2->Name = L"textBoxUnion2";
 			this->textBoxUnion2->Size = System::Drawing::Size(42, 20);
@@ -281,6 +284,7 @@ namespace GeneCounter {
 			// ckBoxUnir
 			// 
 			this->ckBoxUnir->AutoSize = true;
+			this->ckBoxUnir->Enabled = false;
 			this->ckBoxUnir->Location = System::Drawing::Point(746, 240);
 			this->ckBoxUnir->Name = L"ckBoxUnir";
 			this->ckBoxUnir->Size = System::Drawing::Size(83, 17);
@@ -292,6 +296,7 @@ namespace GeneCounter {
 			// ckBoxBorrar
 			// 
 			this->ckBoxBorrar->AutoSize = true;
+			this->ckBoxBorrar->Enabled = false;
 			this->ckBoxBorrar->Location = System::Drawing::Point(746, 307);
 			this->ckBoxBorrar->Name = L"ckBoxBorrar";
 			this->ckBoxBorrar->Size = System::Drawing::Size(90, 17);
@@ -302,6 +307,7 @@ namespace GeneCounter {
 			// 
 			// txtBoxBorrar
 			// 
+			this->txtBoxBorrar->Enabled = false;
 			this->txtBoxBorrar->Location = System::Drawing::Point(853, 305);
 			this->txtBoxBorrar->Name = L"txtBoxBorrar";
 			this->txtBoxBorrar->Size = System::Drawing::Size(42, 20);
@@ -309,6 +315,7 @@ namespace GeneCounter {
 			// 
 			// txtBoxSepararIndice
 			// 
+			this->txtBoxSepararIndice->Enabled = false;
 			this->txtBoxSepararIndice->Location = System::Drawing::Point(856, 390);
 			this->txtBoxSepararIndice->Name = L"txtBoxSepararIndice";
 			this->txtBoxSepararIndice->Size = System::Drawing::Size(41, 20);
@@ -316,6 +323,7 @@ namespace GeneCounter {
 			// 
 			// txtBoxSepararPartes
 			// 
+			this->txtBoxSepararPartes->Enabled = false;
 			this->txtBoxSepararPartes->Location = System::Drawing::Point(915, 390);
 			this->txtBoxSepararPartes->Name = L"txtBoxSepararPartes";
 			this->txtBoxSepararPartes->Size = System::Drawing::Size(42, 20);
@@ -342,6 +350,7 @@ namespace GeneCounter {
 			// ckBoxSeparar
 			// 
 			this->ckBoxSeparar->AutoSize = true;
+			this->ckBoxSeparar->Enabled = false;
 			this->ckBoxSeparar->Location = System::Drawing::Point(746, 392);
 			this->ckBoxSeparar->Name = L"ckBoxSeparar";
 			this->ckBoxSeparar->Size = System::Drawing::Size(96, 17);
@@ -353,6 +362,7 @@ namespace GeneCounter {
 			// ckBoxCuadros
 			// 
 			this->ckBoxCuadros->AutoSize = true;
+			this->ckBoxCuadros->Enabled = false;
 			this->ckBoxCuadros->Location = System::Drawing::Point(746, 176);
 			this->ckBoxCuadros->Name = L"ckBoxCuadros";
 			this->ckBoxCuadros->Size = System::Drawing::Size(183, 17);
@@ -368,9 +378,9 @@ namespace GeneCounter {
 			this->LejemUnir->ForeColor = System::Drawing::Color::Crimson;
 			this->LejemUnir->Location = System::Drawing::Point(767, 264);
 			this->LejemUnir->Name = L"LejemUnir";
-			this->LejemUnir->Size = System::Drawing::Size(131, 13);
+			this->LejemUnir->Size = System::Drawing::Size(134, 13);
 			this->LejemUnir->TabIndex = 29;
-			this->LejemUnir->Text = L"Ej:  Unir [ 1 ]  Con [ 2;3;4; ]";
+			this->LejemUnir->Text = L"Ej:  Unir [ 1; ]  Con [ 2;3;4; ]";
 			// 
 			// LejemBorrar
 			// 
@@ -380,9 +390,9 @@ namespace GeneCounter {
 			this->LejemBorrar->ForeColor = System::Drawing::Color::Crimson;
 			this->LejemBorrar->Location = System::Drawing::Point(767, 328);
 			this->LejemBorrar->Name = L"LejemBorrar";
-			this->LejemBorrar->Size = System::Drawing::Size(94, 13);
+			this->LejemBorrar->Size = System::Drawing::Size(100, 13);
 			this->LejemBorrar->TabIndex = 30;
-			this->LejemBorrar->Text = L"Ej: [ 1; ]  ó  [2;3;4;]";
+			this->LejemBorrar->Text = L"Ej: [ 1; ]  ó  [ 2;3;4; ]";
 			this->LejemBorrar->TextAlign = System::Drawing::ContentAlignment::BottomCenter;
 			// 
 			// LEjmSeparar
@@ -393,9 +403,9 @@ namespace GeneCounter {
 			this->LEjmSeparar->ForeColor = System::Drawing::Color::Crimson;
 			this->LEjmSeparar->Location = System::Drawing::Point(770, 416);
 			this->LEjmSeparar->Name = L"LEjmSeparar";
-			this->LEjmSeparar->Size = System::Drawing::Size(120, 13);
+			this->LEjmSeparar->Size = System::Drawing::Size(144, 13);
 			this->LEjmSeparar->TabIndex = 31;
-			this->LEjmSeparar->Text = L"Ej: Separar [ 1 ]  En [ 2 ]";
+			this->LEjmSeparar->Text = L"Ej: Separar [ 1;2; ]  En [ 2;3; ]";
 			// 
 			// MyForm
 			// 
@@ -510,7 +520,7 @@ namespace GeneCounter {
 					int index = getIndex(indiceASeparar, numeroGenes);
 					for (int j = 0; j < numPartesASeparar.at(index) ; j++)
 					{
-						putText(src, to_string(numeroGenes), Point2f(bounding_rect.x + j*20 , bounding_rect.y + j*30), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 255, 0), 2);
+						putText(src, to_string(numeroGenes), Point2f(bounding_rect.x + j*20 , bounding_rect.y + j*30), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
 						numeroGenes++;
 					}
 				}
@@ -655,6 +665,7 @@ namespace GeneCounter {
 	private: System::Void btnContar_Click(System::Object^  sender, System::EventArgs^  e) {
 		Mat img = imread(rutaImagen, CV_LOAD_IMAGE_COLOR);
 		vector<int> borrar, uniones;
+		
 
 		if (!imgBounded)
 		{
@@ -665,15 +676,23 @@ namespace GeneCounter {
 		{
 			borrar = getBorrarList();
 			bounding_rects = deleteBoundsChosed(borrar);
+			ckBoxBorrar->Checked = false;
+			txtBoxBorrar->Text = "";
 		}
 		if (ckBoxUnir->Checked) 
 		{
 			uniones = getUnirList();
 			bounding_rects = deleteBoundsChosed(uniones);
+			ckBoxUnir->Checked = false;
+			textBoxUnion1->Text = "";
+			textBoxUnion2->Text = "";
 		}
 		if (ckBoxSeparar->Checked) 
 		{
 			setSeparacion();
+			ckBoxSeparar->Checked = false;
+			txtBoxSepararIndice->Text = "";
+			txtBoxSepararPartes->Text = "";
 		}
 
 		img = contarGenes(img);
@@ -690,9 +709,9 @@ namespace GeneCounter {
 	}
 	void showImage(Mat img) {
 		int num = getRandomNumber(0,1000);
-		string archivo = rutaTemp + "temp" + to_string(numeroGenes) + "_" + to_string(num) + nombreArchivo;
-		imwrite(archivo, img);
-		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(archivo.c_str()));
+		archivoActual = rutaTemp + "temp" + to_string(numeroGenes) + "_" + to_string(num) + nombreArchivo;
+		imwrite(archivoActual, img);
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(archivoActual.c_str()));
 		LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 				 /*
 				 imgBox->Image = gcnew Bitmap(img.size().width,
@@ -704,16 +723,66 @@ namespace GeneCounter {
 	}
 	void saveImage(Mat img) {
 		imwrite(rutaContadas + nombreArchivo , img);
-		diTemp->Delete(true);
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
 	}
 
 	private: System::Void btnGuardar_Click(System::Object^  sender, System::EventArgs^  e) {
-		Mat img = imread(rutaImagen, CV_LOAD_IMAGE_COLOR);
-		img = contarGenes(img);
+		Mat img = imread(archivoActual, CV_LOAD_IMAGE_COLOR);
 		saveImage(img);
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String((rutaContadas + nombreArchivo).c_str()));
+//		diTemp->Delete(true); // delete temp folder and all inside files
+	}
+	void EnablePannel() {
+		ckBoxBorrar->Enabled = true;
+		ckBoxCuadros->Enabled = true;
+		ckBoxSeparar->Enabled = true;
+		ckBoxUnir->Enabled = true;
+		txtBoxBorrar->Enabled = true;
+		txtBoxSepararIndice->Enabled = true;
+		txtBoxSepararPartes->Enabled = true;
+		textBoxUnion1->Enabled = true;
+		textBoxUnion2->Enabled = true;
+		trackBarPercentil->Enabled = true;
+		btnContar->Enabled = true;
+		btnGuardar->Enabled = true;
+
+	}
+	void DisablePannel() {
+		ckBoxBorrar->Enabled = false;
+		ckBoxCuadros->Enabled = false;
+		ckBoxSeparar->Enabled = false;
+		ckBoxUnir->Enabled = false;
+		txtBoxBorrar->Enabled = false;
+		txtBoxSepararIndice->Enabled = false;
+		txtBoxSepararPartes->Enabled = false;
+		textBoxUnion1->Enabled = false;
+		textBoxUnion2->Enabled = false;
+		trackBarPercentil->Enabled = false;
+		btnContar->Enabled = false;
+		btnGuardar->Enabled = false;
+
+	}
+	void resetEnviromentVariables() {
+		vector<int> nullIntVector;
+		vector<Rect> nullRectVector;
+
+		archivoActual = "";
+		rutaImagen = "";
+		ruta = "";
+		rutaTemp = "";
+		rutaContadas = "";
+		directorio = "";
+		nombreArchivo = "";
+		bounding_rects = nullRectVector;
+		numeroGenes = 0;
+		percentilSelecionado = 0;
+		imgBounded = false;
+		indiceASeparar = nullIntVector;
+		numPartesASeparar = nullIntVector;
 	}
 			 
 	private: System::Void btnMostrar_Click(System::Object^  sender, System::EventArgs^  e) {
+		resetEnviromentVariables();
 		System::String^ rawRuta = txtBoxRuta->Text;
 		System::String^ fileName = Path::GetFileName(rawRuta);
 		System::String^ path = rawRuta->Substring(0,(rawRuta->Length)-(fileName->Length));
@@ -730,6 +799,10 @@ namespace GeneCounter {
 		rutaContadas = ruta + "contadas\\";
 
 		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
+
+
+
+		EnablePannel();
 
 //		DirectoryInfo^ dirInfo = gcnew DirectoryInfo(path);
 /*
