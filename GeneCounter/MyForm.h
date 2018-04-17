@@ -101,6 +101,9 @@ namespace GeneCounter {
 	private: System::Windows::Forms::Label^  LejemBorrar;
 	private: System::Windows::Forms::Label^  LEjmSeparar;
 	private: System::Windows::Forms::Label^  Limportante;
+	private: System::Windows::Forms::Button^  btnSeleccionar;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog;
+
 
 
 
@@ -148,6 +151,8 @@ namespace GeneCounter {
 			this->LejemBorrar = (gcnew System::Windows::Forms::Label());
 			this->LEjmSeparar = (gcnew System::Windows::Forms::Label());
 			this->Limportante = (gcnew System::Windows::Forms::Label());
+			this->btnSeleccionar = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
 			this->SuspendLayout();
@@ -419,11 +424,28 @@ namespace GeneCounter {
 			this->Limportante->TabIndex = 32;
 			this->Limportante->Text = L"* IMPORTANTE : escribir los números con un \' ; \' detrás";
 			// 
+			// btnSeleccionar
+			// 
+			this->btnSeleccionar->Location = System::Drawing::Point(362, 22);
+			this->btnSeleccionar->Name = L"btnSeleccionar";
+			this->btnSeleccionar->Size = System::Drawing::Size(143, 23);
+			this->btnSeleccionar->TabIndex = 33;
+			this->btnSeleccionar->Text = L"Selecionar imagenes";
+			this->btnSeleccionar->UseVisualStyleBackColor = true;
+			this->btnSeleccionar->Click += gcnew System::EventHandler(this, &MyForm::btnSeleccionar_Click);
+			// 
+			// openFileDialog
+			// 
+			this->openFileDialog->FileName = L"openFileDialog";
+			this->openFileDialog->Filter = L"(*.bmp)|*.bmp";
+			this->openFileDialog->Multiselect = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(990, 525);
+			this->Controls->Add(this->btnSeleccionar);
 			this->Controls->Add(this->Limportante);
 			this->Controls->Add(this->LEjmSeparar);
 			this->Controls->Add(this->LejemBorrar);
@@ -790,11 +812,11 @@ namespace GeneCounter {
 	}
 			 
 	private: System::Void btnMostrar_Click(System::Object^  sender, System::EventArgs^  e) {
-		resetEnviromentVariables();
+		/* resetEnviromentVariables();
 		System::String^ rawRuta = txtBoxRuta->Text;
 		System::String^ fileName = Path::GetFileName(rawRuta);
 		System::String^ path = rawRuta->Substring(0,(rawRuta->Length)-(fileName->Length));
-		LrutaDir->Text= System::String::Concat("ruta: ", path," archivo: ",fileName);
+		//LrutaDir->Text= System::String::Concat("ruta: ", path," archivo: ",fileName);
 
 		MarshalString(rawRuta, rutaImagen);
 		MarshalString(path, ruta);
@@ -810,23 +832,7 @@ namespace GeneCounter {
 
 
 
-		EnablePannel();
-
-//		DirectoryInfo^ dirInfo = gcnew DirectoryInfo(path);
-/*
-		if (dirInfo->Exists)    // make sure directory exists
-		{
-			array<System::IO::FileInfo^> ^files = dirInfo->GetFileSystemInfos();
-			for (int i = 0; i < files->Length; i++)
-			{
-				String ^ currFileName = files[i]->ToString();
-				if (String::Compare(currFileName, fileName, true) == 0)
-				{
-					foundFiles->Add(files[i]);
-				}
-		}
-*/
-//		diTemp->Delete();
+		EnablePannel();*/
 
 	}
 	private: System::Void ckBoxSeparar_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -872,6 +878,52 @@ namespace GeneCounter {
 			textBoxUnion2->Enabled = false;
 		}
 	}
+private: System::Void btnSeleccionar_Click(System::Object^  sender, System::EventArgs^  e) {
+	resetEnviromentVariables();
+
+	System::String^ rawRuta;
+	System::String^ fileName;
+	System::String^ path;
+
+	Stream^ stream;
+	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		stream = openFileDialog->OpenFile();
+		if (stream != nullptr) {
+			
+			for each (System::String^ file in openFileDialog->FileNames)
+			{
+				rawRuta = file;
+				fileName = Path::GetFileName(rawRuta);
+				path = rawRuta->Substring(0, (rawRuta->Length) - (fileName->Length));
+				MarshalString(rawRuta, rutaImagen);
+				MarshalString(path, ruta);
+				MarshalString(fileName, nombreArchivo);
+
+				//TODO: vectores para rutas , nextImage() , contador de imagenes procesadas y variables de imagen actual
+
+			}
+		}
+		stream->Close();
+
+
+		
+		
+
+		
+
+		diTemp = Directory::CreateDirectory(System::String::Concat(path, "temp"));
+		DirectoryInfo^ diContadas = Directory::CreateDirectory(System::String::Concat(path, "contadas"));
+
+		rutaTemp = ruta + "temp\\";
+		rutaContadas = ruta + "contadas\\";
+
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
+
+
+
+		EnablePannel();
+	}
+}
 };
 }
 
