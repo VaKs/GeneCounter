@@ -32,13 +32,15 @@ namespace GeneCounter {
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
-	string archivoActual = "";
-	string rutaImagen = "";
+	int indexImgActual = -1;
+	vector<string> rutas;
+	vector<string> nombreArchivos;
+	string archivoTemporalActual = "";
+	string rutaConImagen = "";
 	string ruta="";
 	string rutaTemp = "";
-	string rutaContadas = ""; 
-	string directorio = "";
-	string nombreArchivo = "";
+	string rutaContadas = "";
+	string nombreArchivoActual = "";
 	vector<Rect> bounding_rects;
 	int numeroGenes = 0;
 	int percentilSelecionado = 0;
@@ -71,7 +73,7 @@ namespace GeneCounter {
 
 
 	private: System::Windows::Forms::Label^  Lpercentil;
-	private: System::Windows::Forms::TextBox^  txtBoxRuta;
+
 	protected:
 
 
@@ -82,8 +84,8 @@ namespace GeneCounter {
 	private: System::Windows::Forms::Label^  Ltotal;
 	private: System::Windows::Forms::Label^  LNuemroTotal;
 	private: System::Windows::Forms::Button^  btnGuardar;
-	private: System::Windows::Forms::Label^  LrutaDir;
-	private: System::Windows::Forms::Button^  btnMostrar;
+
+
 	private: System::Windows::Forms::TextBox^  textBoxUnion1;
 	private: System::Windows::Forms::TextBox^  textBoxUnion2;
 	private: System::Windows::Forms::Label^  LUnir;
@@ -103,6 +105,9 @@ namespace GeneCounter {
 	private: System::Windows::Forms::Label^  Limportante;
 	private: System::Windows::Forms::Button^  btnSeleccionar;
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog;
+	private: System::Windows::Forms::Label^  indiceImagen;
+	private: System::Windows::Forms::Button^  btnSiguiente;
+	private: System::Windows::Forms::Button^  btnAnterior;
 
 
 
@@ -125,15 +130,12 @@ namespace GeneCounter {
 		void InitializeComponent(void)
 		{
 			this->Lpercentil = (gcnew System::Windows::Forms::Label());
-			this->txtBoxRuta = (gcnew System::Windows::Forms::TextBox());
 			this->btnContar = (gcnew System::Windows::Forms::Button());
 			this->imgBox = (gcnew System::Windows::Forms::PictureBox());
 			this->trackBarPercentil = (gcnew System::Windows::Forms::TrackBar());
 			this->Ltotal = (gcnew System::Windows::Forms::Label());
 			this->LNuemroTotal = (gcnew System::Windows::Forms::Label());
 			this->btnGuardar = (gcnew System::Windows::Forms::Button());
-			this->LrutaDir = (gcnew System::Windows::Forms::Label());
-			this->btnMostrar = (gcnew System::Windows::Forms::Button());
 			this->textBoxUnion1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxUnion2 = (gcnew System::Windows::Forms::TextBox());
 			this->LUnir = (gcnew System::Windows::Forms::Label());
@@ -153,6 +155,9 @@ namespace GeneCounter {
 			this->Limportante = (gcnew System::Windows::Forms::Label());
 			this->btnSeleccionar = (gcnew System::Windows::Forms::Button());
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->indiceImagen = (gcnew System::Windows::Forms::Label());
+			this->btnSiguiente = (gcnew System::Windows::Forms::Button());
+			this->btnAnterior = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
 			this->SuspendLayout();
@@ -166,17 +171,10 @@ namespace GeneCounter {
 			this->Lpercentil->TabIndex = 0;
 			this->Lpercentil->Text = L"Percentil empleado: 0";
 			// 
-			// txtBoxRuta
-			// 
-			this->txtBoxRuta->Location = System::Drawing::Point(12, 24);
-			this->txtBoxRuta->Name = L"txtBoxRuta";
-			this->txtBoxRuta->Size = System::Drawing::Size(217, 20);
-			this->txtBoxRuta->TabIndex = 1;
-			// 
 			// btnContar
 			// 
 			this->btnContar->Enabled = false;
-			this->btnContar->Location = System::Drawing::Point(905, 494);
+			this->btnContar->Location = System::Drawing::Point(741, 454);
 			this->btnContar->Name = L"btnContar";
 			this->btnContar->Size = System::Drawing::Size(75, 23);
 			this->btnContar->TabIndex = 2;
@@ -227,32 +225,13 @@ namespace GeneCounter {
 			// btnGuardar
 			// 
 			this->btnGuardar->Enabled = false;
-			this->btnGuardar->Location = System::Drawing::Point(824, 494);
+			this->btnGuardar->Location = System::Drawing::Point(842, 495);
 			this->btnGuardar->Name = L"btnGuardar";
-			this->btnGuardar->Size = System::Drawing::Size(75, 23);
+			this->btnGuardar->Size = System::Drawing::Size(134, 23);
 			this->btnGuardar->TabIndex = 13;
-			this->btnGuardar->Text = L"Guardar";
+			this->btnGuardar->Text = L"Guardar y siguiente >";
 			this->btnGuardar->UseVisualStyleBackColor = true;
 			this->btnGuardar->Click += gcnew System::EventHandler(this, &MyForm::btnGuardar_Click);
-			// 
-			// LrutaDir
-			// 
-			this->LrutaDir->AutoSize = true;
-			this->LrutaDir->Location = System::Drawing::Point(12, 5);
-			this->LrutaDir->Name = L"LrutaDir";
-			this->LrutaDir->Size = System::Drawing::Size(140, 13);
-			this->LrutaDir->TabIndex = 14;
-			this->LrutaDir->Text = L"Escribe la ruta de la imagen:";
-			// 
-			// btnMostrar
-			// 
-			this->btnMostrar->Location = System::Drawing::Point(246, 24);
-			this->btnMostrar->Name = L"btnMostrar";
-			this->btnMostrar->Size = System::Drawing::Size(75, 23);
-			this->btnMostrar->TabIndex = 15;
-			this->btnMostrar->Text = L"Mostrar";
-			this->btnMostrar->UseVisualStyleBackColor = true;
-			this->btnMostrar->Click += gcnew System::EventHandler(this, &MyForm::btnMostrar_Click);
 			// 
 			// textBoxUnion1
 			// 
@@ -426,7 +405,7 @@ namespace GeneCounter {
 			// 
 			// btnSeleccionar
 			// 
-			this->btnSeleccionar->Location = System::Drawing::Point(362, 22);
+			this->btnSeleccionar->Location = System::Drawing::Point(265, 274);
 			this->btnSeleccionar->Name = L"btnSeleccionar";
 			this->btnSeleccionar->Size = System::Drawing::Size(143, 23);
 			this->btnSeleccionar->TabIndex = 33;
@@ -440,11 +419,44 @@ namespace GeneCounter {
 			this->openFileDialog->Filter = L"(*.bmp)|*.bmp";
 			this->openFileDialog->Multiselect = true;
 			// 
+			// indiceImagen
+			// 
+			this->indiceImagen->AutoSize = true;
+			this->indiceImagen->Location = System::Drawing::Point(327, 40);
+			this->indiceImagen->Name = L"indiceImagen";
+			this->indiceImagen->Size = System::Drawing::Size(0, 13);
+			this->indiceImagen->TabIndex = 34;
+			// 
+			// btnSiguiente
+			// 
+			this->btnSiguiente->Enabled = false;
+			this->btnSiguiente->Location = System::Drawing::Point(404, 40);
+			this->btnSiguiente->Name = L"btnSiguiente";
+			this->btnSiguiente->Size = System::Drawing::Size(75, 23);
+			this->btnSiguiente->TabIndex = 35;
+			this->btnSiguiente->Text = L"Siguiente >";
+			this->btnSiguiente->UseVisualStyleBackColor = true;
+			this->btnSiguiente->Click += gcnew System::EventHandler(this, &MyForm::btnSiguiente_Click);
+			// 
+			// btnAnterior
+			// 
+			this->btnAnterior->Enabled = false;
+			this->btnAnterior->Location = System::Drawing::Point(201, 40);
+			this->btnAnterior->Name = L"btnAnterior";
+			this->btnAnterior->Size = System::Drawing::Size(75, 23);
+			this->btnAnterior->TabIndex = 36;
+			this->btnAnterior->Text = L"< Anterior ";
+			this->btnAnterior->UseVisualStyleBackColor = true;
+			this->btnAnterior->Click += gcnew System::EventHandler(this, &MyForm::btnAnterior_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(990, 525);
+			this->Controls->Add(this->btnAnterior);
+			this->Controls->Add(this->btnSiguiente);
+			this->Controls->Add(this->indiceImagen);
 			this->Controls->Add(this->btnSeleccionar);
 			this->Controls->Add(this->Limportante);
 			this->Controls->Add(this->LEjmSeparar);
@@ -463,15 +475,12 @@ namespace GeneCounter {
 			this->Controls->Add(this->LUnir);
 			this->Controls->Add(this->textBoxUnion2);
 			this->Controls->Add(this->textBoxUnion1);
-			this->Controls->Add(this->btnMostrar);
-			this->Controls->Add(this->LrutaDir);
 			this->Controls->Add(this->btnGuardar);
 			this->Controls->Add(this->LNuemroTotal);
 			this->Controls->Add(this->Ltotal);
 			this->Controls->Add(this->trackBarPercentil);
 			this->Controls->Add(this->imgBox);
 			this->Controls->Add(this->btnContar);
-			this->Controls->Add(this->txtBoxRuta);
 			this->Controls->Add(this->Lpercentil);
 			this->Name = L"MyForm";
 			this->Text = L"Contador de genes";
@@ -543,14 +552,14 @@ namespace GeneCounter {
 		Mat contarGenes(Mat src) {
 			Rect bounding_rect;
 			numeroGenes = 1;
-			for (int i = 0; i < bounding_rects.size(); i++) // iterate through each bound. 
+			for (int i = 0; i < bounding_rects.size(); i++) // recorrer la lista de contornos
 			{
 				bounding_rect = bounding_rects.at(i);
-				if (ckBoxCuadros->Checked) {
-					rectangle(src, bounding_rect, Scalar(0, 255, 0), 3, 8, 0);
+				if (ckBoxCuadros->Checked) { // si la opción  recuadrar está selecionada
+					rectangle(src, bounding_rect, Scalar(0, 255, 0), 3, 8, 0); // Pintar rectangulo enlazado al contorno
 				}
 
-				if (Contains(indiceASeparar,numeroGenes))
+				if (Contains(indiceASeparar,numeroGenes)) // si el indice con el que estamos trabajando se ha seleccionado para ser separado en varios
 				{
 					int index = getIndex(indiceASeparar, numeroGenes);
 					for (int j = 0; j < numPartesASeparar.at(index) ; j++)
@@ -559,7 +568,7 @@ namespace GeneCounter {
 						numeroGenes++;
 					}
 				}
-				else {
+				else { // si no, simplemente se escribe el número
 					putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
 					numeroGenes++;
 				}
@@ -567,6 +576,7 @@ namespace GeneCounter {
 			numeroGenes--;
 			return src;
 		}
+
 		vector<Rect> getBoundings(Mat src) {
 			vector<vector<cv::Point>> contours;
 			vector<Vec4i> hierarchy;
@@ -574,43 +584,35 @@ namespace GeneCounter {
 			Rect bounding_rect;
 			Mat dst, bin, img_gray;
 
-			cvtColor(src, img_gray, CV_BGR2GRAY);  // converts image from rgb(src) to gray level (dst)
-			dst = img_gray > 128;		   //convert to B&W
-			dst = negativo(dst);
+			cvtColor(src, img_gray, CV_BGR2GRAY);	// convierte la imagen de RGB (src) a niveles de gris (img_gray)
+			dst = img_gray > 128;					// convierte la imagen de escala de gris a Blanco y negro
+			dst = negativo(dst);					// obtiene el negtivo de la imagen
 
-			threshold(dst, bin, 20, 255, THRESH_BINARY); // Tresholds image with level = 40 from gray level(dst) to binary (bin)
-			findContours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); // finds contours on bin image
+			threshold(dst, bin, 20, 255, THRESH_BINARY); // pasar la imagen a binaria con  Treshold
+			findContours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); // encuentra los contornos de la imagen binaria
 
-			Scalar color(255, 255, 255);
-			for (int i = 0; i < contours.size(); i++) // iterate through each contour. 
-			{
-				if ((contourArea(contours[i], false)) > 100) { // if counter area >100 pixel draw it on ero which is new image variable
-					drawContours(bin, contours, i, color, CV_FILLED, 8, hierarchy); //Draw contours on itself as filled
-				}
-			}
-
-			findContours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
 			vector<double> areas;
 			int area;
-
-			for (int i = 0; i < contours.size(); i++) // iterate through each contour. 
+			for (int i = 0; i < contours.size(); i++)
 			{
-				bounding_rect = boundingRect(contours[i]); //Bound and Draw rectangle each object which detected at the end on src(original image)
-				area = bounding_rect.height*bounding_rect.width;
-				areas.push_back(area);
+				bounding_rect = boundingRect(contours[i]); // Almacena en una lista con los contornos detectados y les enlaza un rectangulo que la rodea
+				area = bounding_rect.height*bounding_rect.width; // Calcula el area de cada contorno y las almacena en una lista
+				areas.push_back(area); 
 			}
 
-			double percentil = calcularPercentil(percentilSelecionado, areas);
-			for (int i = 0; i < contours.size(); i++) // iterate through each contour. 
+			double percentil = calcularPercentil(percentilSelecionado, areas); // Con la lista de areas se obtiene el valor del percentil selecionado para cribar los resultados
+
+			for (int i = 0; i < contours.size(); i++)
 			{
-				bounding_rect = boundingRect(contours[i]);
+				bounding_rect = boundingRect(contours[i]); 
 				area = bounding_rect.height*bounding_rect.width;
-				if (area > percentil) {
+				if (area > percentil) {		// Si el area de este contarno es mayor que el valor del percentil se almacena, si no se descarta
 					bounding_rects.push_back(bounding_rect);
 				}
 			}
 			return bounding_rects;
 		}
+
 	void MarshalString(System::String^ s, string& os) {
 		using namespace Runtime::InteropServices;
 		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
@@ -698,30 +700,49 @@ namespace GeneCounter {
 		return newBounding;
 	}
 	private: System::Void btnContar_Click(System::Object^  sender, System::EventArgs^  e) {
-		Mat img = imread(rutaImagen, CV_LOAD_IMAGE_COLOR);
-		vector<int> borrar, uniones;
-		
+		Mat img = imread(rutaConImagen, CV_LOAD_IMAGE_COLOR);
+		vector<int> borrar, uniones, borrarYUniones;
 
 		if (!imgBounded)
 		{
 			bounding_rects = getBoundings(img);
 			imgBounded = true;
 		}
-		if (ckBoxBorrar->Checked)
+		if (ckBoxBorrar->Checked || ckBoxUnir->Checked)
 		{
-			borrar = getBorrarList();
-			bounding_rects = deleteBoundsChosed(borrar);
-			ckBoxBorrar->Checked = false;
-			txtBoxBorrar->Text = "";
+			if (ckBoxBorrar->Checked && ckBoxUnir->Checked) {
+				borrar = getBorrarList();
+				uniones = getUnirList();
+				borrarYUniones.reserve(borrar.size() + uniones.size());
+				borrarYUniones.insert(borrarYUniones.end(), borrar.begin(), borrar.end());
+				borrarYUniones.insert(borrarYUniones.end(), uniones.begin(), uniones.end());
+
+				bounding_rects = deleteBoundsChosed(borrarYUniones);
+
+				ckBoxBorrar->Checked = false;
+				txtBoxBorrar->Text = "";
+				ckBoxUnir->Checked = false;
+				textBoxUnion1->Text = "";
+				textBoxUnion2->Text = "";
+
+			} else if (ckBoxUnir->Checked)
+			{
+				uniones = getUnirList();
+				bounding_rects = deleteBoundsChosed(uniones);
+				ckBoxUnir->Checked = false;
+				textBoxUnion1->Text = "";
+				textBoxUnion2->Text = "";
+
+			} else if (ckBoxBorrar->Checked)
+			{
+				borrar = getBorrarList();
+				bounding_rects = deleteBoundsChosed(borrar);
+				ckBoxBorrar->Checked = false;
+				txtBoxBorrar->Text = "";
+			}
+			
 		}
-		if (ckBoxUnir->Checked) 
-		{
-			uniones = getUnirList();
-			bounding_rects = deleteBoundsChosed(uniones);
-			ckBoxUnir->Checked = false;
-			textBoxUnion1->Text = "";
-			textBoxUnion2->Text = "";
-		}
+		
 		if (ckBoxSeparar->Checked) 
 		{
 			setSeparacion();
@@ -744,9 +765,9 @@ namespace GeneCounter {
 	}
 	void showImage(Mat img) {
 		int num = getRandomNumber(0,1000);
-		archivoActual = rutaTemp + "temp" + to_string(numeroGenes) + "_" + to_string(num) + nombreArchivo;
-		imwrite(archivoActual, img);
-		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(archivoActual.c_str()));
+		archivoTemporalActual = rutaTemp + "temp_" + to_string(numeroGenes) + "_" + to_string(num)+ "_" + nombreArchivoActual;
+		imwrite(archivoTemporalActual, img);
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(archivoTemporalActual.c_str()));
 		LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 				 /*
 				 imgBox->Image = gcnew Bitmap(img.size().width,
@@ -757,17 +778,19 @@ namespace GeneCounter {
 				 */
 	}
 	void saveImage(Mat img) {
-		imwrite(rutaContadas + nombreArchivo , img);
-		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
+		imwrite(rutaContadas + nombreArchivoActual, img);
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 	}
 
 	private: System::Void btnGuardar_Click(System::Object^  sender, System::EventArgs^  e) {
-		Mat img = imread(archivoActual, CV_LOAD_IMAGE_COLOR);
+		Mat img = imread(archivoTemporalActual, CV_LOAD_IMAGE_COLOR);
 		saveImage(img);
-		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String((rutaContadas + nombreArchivo).c_str()));
+		nextImage();
 //		diTemp->Delete(true); // delete temp folder and all inside files
 	}
 	void EnablePannel() {
+		btnAnterior->Enabled = true;
+		btnSiguiente->Enabled = true;
 		ckBoxBorrar->Enabled = true;
 		ckBoxCuadros->Enabled = true;
 		ckBoxSeparar->Enabled = true;
@@ -775,9 +798,12 @@ namespace GeneCounter {
 		trackBarPercentil->Enabled = true;
 		btnContar->Enabled = true;
 		btnGuardar->Enabled = true;
+		btnSeleccionar->Visible = false;
 
 	}
 	void DisablePannel() {
+		btnAnterior->Enabled = false;
+		btnSiguiente->Enabled = false;
 		ckBoxBorrar->Enabled = false;
 		ckBoxCuadros->Enabled = false;
 		ckBoxSeparar->Enabled = false;
@@ -790,49 +816,54 @@ namespace GeneCounter {
 		trackBarPercentil->Enabled = false;
 		btnContar->Enabled = false;
 		btnGuardar->Enabled = false;
+		btnSeleccionar->Visible = true;
+
 
 	}
-	void resetEnviromentVariables() {
-		vector<int> nullIntVector;
-		vector<Rect> nullRectVector;
 
-		archivoActual = "";
-		rutaImagen = "";
-		ruta = "";
-		rutaTemp = "";
-		rutaContadas = "";
-		directorio = "";
-		nombreArchivo = "";
-		bounding_rects = nullRectVector;
-		numeroGenes = 0;
-		percentilSelecionado = 0;
-		imgBounded = false;
-		indiceASeparar = nullIntVector;
-		numPartesASeparar = nullIntVector;
-	}
-			 
-	private: System::Void btnMostrar_Click(System::Object^  sender, System::EventArgs^  e) {
-		/* resetEnviromentVariables();
-		System::String^ rawRuta = txtBoxRuta->Text;
-		System::String^ fileName = Path::GetFileName(rawRuta);
-		System::String^ path = rawRuta->Substring(0,(rawRuta->Length)-(fileName->Length));
-		//LrutaDir->Text= System::String::Concat("ruta: ", path," archivo: ",fileName);
+	void nextImage() {
 
-		MarshalString(rawRuta, rutaImagen);
-		MarshalString(path, ruta);
-		MarshalString(fileName, nombreArchivo);
+		if (indexImgActual+1 != nombreArchivos.size()) {
+			vector<int> nullIntVector;
+			vector<Rect> nullRectVector;
 
-		diTemp = Directory::CreateDirectory(System::String::Concat(path,"temp"));
-		DirectoryInfo^ diContadas = Directory::CreateDirectory(System::String::Concat(path, "contadas"));
+			indexImgActual++;
 
-		rutaTemp = ruta + "temp\\";
-		rutaContadas = ruta + "contadas\\";
+			archivoTemporalActual = "";
+			ruta = rutas.at(indexImgActual);
+			nombreArchivoActual = nombreArchivos.at(indexImgActual);
+			rutaConImagen = ruta + nombreArchivoActual;
 
-		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
+			System::String^ auxRuta = gcnew System::String(ruta.c_str());
+			auxRuta = auxRuta + "temp";
+			diTemp = Directory::CreateDirectory(gcnew System::String(auxRuta));
+			auxRuta = gcnew System::String(ruta.c_str());
+			auxRuta = auxRuta + "contadas";
+			DirectoryInfo^ diContadas = Directory::CreateDirectory(gcnew System::String(auxRuta));
 
+			rutaTemp = ruta + "temp\\";
+			rutaContadas = ruta + "contadas\\";
 
+			bounding_rects = nullRectVector;
+			numeroGenes = 0;
+			percentilSelecionado = 0;
+			imgBounded = false;
+			indiceASeparar = nullIntVector;
+			numPartesASeparar = nullIntVector;
 
-		EnablePannel();*/
+			imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
+
+			indiceImagen->Text = System::String::Concat(indexImgActual+1, " de ", nombreArchivos.size());
+		}
+		if (indexImgActual+1 == nombreArchivos.size()) {
+			btnSiguiente->Enabled = false;
+		}
+		else 
+		{
+			btnSiguiente->Enabled = true;
+			btnAnterior->Enabled = true;
+		}
+
 
 	}
 	private: System::Void ckBoxSeparar_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -879,11 +910,11 @@ namespace GeneCounter {
 		}
 	}
 private: System::Void btnSeleccionar_Click(System::Object^  sender, System::EventArgs^  e) {
-	resetEnviromentVariables();
 
 	System::String^ rawRuta;
 	System::String^ fileName;
 	System::String^ path;
+	string archivo;
 
 	Stream^ stream;
 	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
@@ -895,33 +926,62 @@ private: System::Void btnSeleccionar_Click(System::Object^  sender, System::Even
 				rawRuta = file;
 				fileName = Path::GetFileName(rawRuta);
 				path = rawRuta->Substring(0, (rawRuta->Length) - (fileName->Length));
-				MarshalString(rawRuta, rutaImagen);
 				MarshalString(path, ruta);
-				MarshalString(fileName, nombreArchivo);
+				MarshalString(fileName, archivo);
 
-				//TODO: vectores para rutas , nextImage() , contador de imagenes procesadas y variables de imagen actual
-
+				rutas.push_back(ruta);
+				nombreArchivos.push_back(archivo);
 			}
 		}
 		stream->Close();
 
+		EnablePannel();
+		nextImage();
+	}
+}
+private: System::Void btnSiguiente_Click(System::Object^  sender, System::EventArgs^  e) {
+	nextImage();
+}
+private: System::Void btnAnterior_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (indexImgActual > 0) {
+		vector<int> nullIntVector;
+		vector<Rect> nullRectVector;
 
-		
-		
+		indexImgActual--;
 
-		
+		archivoTemporalActual = "";
+		ruta = rutas.at(indexImgActual);
+		nombreArchivoActual = nombreArchivos.at(indexImgActual);
+		rutaConImagen = ruta + nombreArchivoActual;
 
-		diTemp = Directory::CreateDirectory(System::String::Concat(path, "temp"));
-		DirectoryInfo^ diContadas = Directory::CreateDirectory(System::String::Concat(path, "contadas"));
+		System::String^ auxRuta = gcnew System::String(ruta.c_str());
+		auxRuta = auxRuta + "temp";
+		diTemp = Directory::CreateDirectory(gcnew System::String(auxRuta));
+		auxRuta = gcnew System::String(ruta.c_str());
+		auxRuta = auxRuta + "contadas";
+		DirectoryInfo^ diContadas = Directory::CreateDirectory(gcnew System::String(auxRuta));
 
 		rutaTemp = ruta + "temp\\";
 		rutaContadas = ruta + "contadas\\";
 
-		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaImagen.c_str()));
+		bounding_rects = nullRectVector;
+		numeroGenes = 0;
+		percentilSelecionado = 0;
+		imgBounded = false;
+		indiceASeparar = nullIntVector;
+		numPartesASeparar = nullIntVector;
 
+		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 
-
-		EnablePannel();
+		indiceImagen->Text = System::String::Concat(indexImgActual + 1, " de ", nombreArchivos.size());
+	}
+	if (indexImgActual == 0) {
+		btnAnterior->Enabled = false;
+	}
+	else
+	{
+		btnSiguiente->Enabled = true;
+		btnAnterior->Enabled = true;
 	}
 }
 };
