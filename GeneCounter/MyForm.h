@@ -108,6 +108,16 @@ namespace GeneCounter {
 	private: System::Windows::Forms::Label^  indiceImagen;
 	private: System::Windows::Forms::Button^  btnSiguiente;
 	private: System::Windows::Forms::Button^  btnAnterior;
+	private: System::Windows::Forms::GroupBox^  groupBoxPercentil;
+	private: System::Windows::Forms::GroupBox^  groupBoxBorrar;
+	private: System::Windows::Forms::GroupBox^  groupBoxSeparar;
+	private: System::Windows::Forms::Button^  btnReiniciar;
+	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^  programaToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  añadirImágenesToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  reiniciarImagenActualToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  colorDeLosNúmerosToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  guiaDeUsoToolStripMenuItem;
 
 
 
@@ -158,14 +168,28 @@ namespace GeneCounter {
 			this->indiceImagen = (gcnew System::Windows::Forms::Label());
 			this->btnSiguiente = (gcnew System::Windows::Forms::Button());
 			this->btnAnterior = (gcnew System::Windows::Forms::Button());
+			this->groupBoxPercentil = (gcnew System::Windows::Forms::GroupBox());
+			this->groupBoxBorrar = (gcnew System::Windows::Forms::GroupBox());
+			this->groupBoxSeparar = (gcnew System::Windows::Forms::GroupBox());
+			this->btnReiniciar = (gcnew System::Windows::Forms::Button());
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->programaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->guiaDeUsoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->añadirImágenesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->reiniciarImagenActualToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->colorDeLosNúmerosToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
+			this->groupBoxPercentil->SuspendLayout();
+			this->groupBoxBorrar->SuspendLayout();
+			this->groupBoxSeparar->SuspendLayout();
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// Lpercentil
 			// 
 			this->Lpercentil->AutoSize = true;
-			this->Lpercentil->Location = System::Drawing::Point(867, 63);
+			this->Lpercentil->Location = System::Drawing::Point(143, 13);
 			this->Lpercentil->Name = L"Lpercentil";
 			this->Lpercentil->Size = System::Drawing::Size(109, 13);
 			this->Lpercentil->TabIndex = 0;
@@ -174,11 +198,11 @@ namespace GeneCounter {
 			// btnContar
 			// 
 			this->btnContar->Enabled = false;
-			this->btnContar->Location = System::Drawing::Point(741, 454);
+			this->btnContar->Location = System::Drawing::Point(723, 457);
 			this->btnContar->Name = L"btnContar";
-			this->btnContar->Size = System::Drawing::Size(75, 23);
+			this->btnContar->Size = System::Drawing::Size(267, 23);
 			this->btnContar->TabIndex = 2;
-			this->btnContar->Text = L"Contar";
+			this->btnContar->Text = L"Contar / Actualizar";
 			this->btnContar->UseVisualStyleBackColor = true;
 			this->btnContar->Click += gcnew System::EventHandler(this, &MyForm::btnContar_Click);
 			// 
@@ -195,7 +219,7 @@ namespace GeneCounter {
 			// 
 			this->trackBarPercentil->Enabled = false;
 			this->trackBarPercentil->LargeChange = 10;
-			this->trackBarPercentil->Location = System::Drawing::Point(730, 79);
+			this->trackBarPercentil->Location = System::Drawing::Point(6, 29);
 			this->trackBarPercentil->Maximum = 100;
 			this->trackBarPercentil->Name = L"trackBarPercentil";
 			this->trackBarPercentil->Size = System::Drawing::Size(250, 45);
@@ -207,18 +231,22 @@ namespace GeneCounter {
 			// Ltotal
 			// 
 			this->Ltotal->AutoSize = true;
+			this->Ltotal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->Ltotal->Location = System::Drawing::Point(13, 500);
 			this->Ltotal->Name = L"Ltotal";
-			this->Ltotal->Size = System::Drawing::Size(37, 13);
+			this->Ltotal->Size = System::Drawing::Size(55, 17);
 			this->Ltotal->TabIndex = 11;
 			this->Ltotal->Text = L"Total: ";
 			// 
 			// LNuemroTotal
 			// 
 			this->LNuemroTotal->AutoSize = true;
-			this->LNuemroTotal->Location = System::Drawing::Point(45, 500);
+			this->LNuemroTotal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->LNuemroTotal->Location = System::Drawing::Point(64, 500);
 			this->LNuemroTotal->Name = L"LNuemroTotal";
-			this->LNuemroTotal->Size = System::Drawing::Size(13, 13);
+			this->LNuemroTotal->Size = System::Drawing::Size(17, 17);
 			this->LNuemroTotal->TabIndex = 12;
 			this->LNuemroTotal->Text = L"0";
 			// 
@@ -236,7 +264,7 @@ namespace GeneCounter {
 			// textBoxUnion1
 			// 
 			this->textBoxUnion1->Enabled = false;
-			this->textBoxUnion1->Location = System::Drawing::Point(872, 238);
+			this->textBoxUnion1->Location = System::Drawing::Point(141, 27);
 			this->textBoxUnion1->Name = L"textBoxUnion1";
 			this->textBoxUnion1->Size = System::Drawing::Size(42, 20);
 			this->textBoxUnion1->TabIndex = 16;
@@ -244,7 +272,7 @@ namespace GeneCounter {
 			// textBoxUnion2
 			// 
 			this->textBoxUnion2->Enabled = false;
-			this->textBoxUnion2->Location = System::Drawing::Point(934, 238);
+			this->textBoxUnion2->Location = System::Drawing::Point(203, 27);
 			this->textBoxUnion2->Name = L"textBoxUnion2";
 			this->textBoxUnion2->Size = System::Drawing::Size(42, 20);
 			this->textBoxUnion2->TabIndex = 17;
@@ -252,7 +280,7 @@ namespace GeneCounter {
 			// LUnir
 			// 
 			this->LUnir->AutoSize = true;
-			this->LUnir->Location = System::Drawing::Point(869, 222);
+			this->LUnir->Location = System::Drawing::Point(138, 11);
 			this->LUnir->Name = L"LUnir";
 			this->LUnir->Size = System::Drawing::Size(29, 13);
 			this->LUnir->TabIndex = 18;
@@ -261,7 +289,7 @@ namespace GeneCounter {
 			// LCon
 			// 
 			this->LCon->AutoSize = true;
-			this->LCon->Location = System::Drawing::Point(931, 222);
+			this->LCon->Location = System::Drawing::Point(200, 11);
 			this->LCon->Name = L"LCon";
 			this->LCon->Size = System::Drawing::Size(28, 13);
 			this->LCon->TabIndex = 19;
@@ -271,7 +299,7 @@ namespace GeneCounter {
 			// 
 			this->ckBoxUnir->AutoSize = true;
 			this->ckBoxUnir->Enabled = false;
-			this->ckBoxUnir->Location = System::Drawing::Point(765, 240);
+			this->ckBoxUnir->Location = System::Drawing::Point(34, 29);
 			this->ckBoxUnir->Name = L"ckBoxUnir";
 			this->ckBoxUnir->Size = System::Drawing::Size(83, 17);
 			this->ckBoxUnir->TabIndex = 20;
@@ -283,7 +311,7 @@ namespace GeneCounter {
 			// 
 			this->ckBoxBorrar->AutoSize = true;
 			this->ckBoxBorrar->Enabled = false;
-			this->ckBoxBorrar->Location = System::Drawing::Point(765, 307);
+			this->ckBoxBorrar->Location = System::Drawing::Point(34, 96);
 			this->ckBoxBorrar->Name = L"ckBoxBorrar";
 			this->ckBoxBorrar->Size = System::Drawing::Size(90, 17);
 			this->ckBoxBorrar->TabIndex = 21;
@@ -294,7 +322,7 @@ namespace GeneCounter {
 			// txtBoxBorrar
 			// 
 			this->txtBoxBorrar->Enabled = false;
-			this->txtBoxBorrar->Location = System::Drawing::Point(872, 305);
+			this->txtBoxBorrar->Location = System::Drawing::Point(141, 94);
 			this->txtBoxBorrar->Name = L"txtBoxBorrar";
 			this->txtBoxBorrar->Size = System::Drawing::Size(42, 20);
 			this->txtBoxBorrar->TabIndex = 22;
@@ -302,7 +330,7 @@ namespace GeneCounter {
 			// txtBoxSepararIndice
 			// 
 			this->txtBoxSepararIndice->Enabled = false;
-			this->txtBoxSepararIndice->Location = System::Drawing::Point(875, 390);
+			this->txtBoxSepararIndice->Location = System::Drawing::Point(144, 39);
 			this->txtBoxSepararIndice->Name = L"txtBoxSepararIndice";
 			this->txtBoxSepararIndice->Size = System::Drawing::Size(41, 20);
 			this->txtBoxSepararIndice->TabIndex = 23;
@@ -310,7 +338,7 @@ namespace GeneCounter {
 			// txtBoxSepararPartes
 			// 
 			this->txtBoxSepararPartes->Enabled = false;
-			this->txtBoxSepararPartes->Location = System::Drawing::Point(934, 390);
+			this->txtBoxSepararPartes->Location = System::Drawing::Point(203, 39);
 			this->txtBoxSepararPartes->Name = L"txtBoxSepararPartes";
 			this->txtBoxSepararPartes->Size = System::Drawing::Size(42, 20);
 			this->txtBoxSepararPartes->TabIndex = 24;
@@ -318,7 +346,7 @@ namespace GeneCounter {
 			// LSeparar
 			// 
 			this->LSeparar->AutoSize = true;
-			this->LSeparar->Location = System::Drawing::Point(872, 371);
+			this->LSeparar->Location = System::Drawing::Point(141, 20);
 			this->LSeparar->Name = L"LSeparar";
 			this->LSeparar->Size = System::Drawing::Size(47, 13);
 			this->LSeparar->TabIndex = 25;
@@ -327,7 +355,7 @@ namespace GeneCounter {
 			// LSepararEn
 			// 
 			this->LSepararEn->AutoSize = true;
-			this->LSepararEn->Location = System::Drawing::Point(934, 370);
+			this->LSepararEn->Location = System::Drawing::Point(203, 19);
 			this->LSepararEn->Name = L"LSepararEn";
 			this->LSepararEn->Size = System::Drawing::Size(23, 13);
 			this->LSepararEn->TabIndex = 26;
@@ -337,7 +365,7 @@ namespace GeneCounter {
 			// 
 			this->ckBoxSeparar->AutoSize = true;
 			this->ckBoxSeparar->Enabled = false;
-			this->ckBoxSeparar->Location = System::Drawing::Point(765, 392);
+			this->ckBoxSeparar->Location = System::Drawing::Point(34, 41);
 			this->ckBoxSeparar->Name = L"ckBoxSeparar";
 			this->ckBoxSeparar->Size = System::Drawing::Size(96, 17);
 			this->ckBoxSeparar->TabIndex = 27;
@@ -349,7 +377,7 @@ namespace GeneCounter {
 			// 
 			this->ckBoxCuadros->AutoSize = true;
 			this->ckBoxCuadros->Enabled = false;
-			this->ckBoxCuadros->Location = System::Drawing::Point(765, 134);
+			this->ckBoxCuadros->Location = System::Drawing::Point(522, 499);
 			this->ckBoxCuadros->Name = L"ckBoxCuadros";
 			this->ckBoxCuadros->Size = System::Drawing::Size(183, 17);
 			this->ckBoxCuadros->TabIndex = 28;
@@ -362,7 +390,7 @@ namespace GeneCounter {
 			this->LejemUnir->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->LejemUnir->ForeColor = System::Drawing::Color::Crimson;
-			this->LejemUnir->Location = System::Drawing::Point(786, 264);
+			this->LejemUnir->Location = System::Drawing::Point(55, 53);
 			this->LejemUnir->Name = L"LejemUnir";
 			this->LejemUnir->Size = System::Drawing::Size(134, 13);
 			this->LejemUnir->TabIndex = 29;
@@ -374,7 +402,7 @@ namespace GeneCounter {
 			this->LejemBorrar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->LejemBorrar->ForeColor = System::Drawing::Color::Crimson;
-			this->LejemBorrar->Location = System::Drawing::Point(786, 328);
+			this->LejemBorrar->Location = System::Drawing::Point(55, 117);
 			this->LejemBorrar->Name = L"LejemBorrar";
 			this->LejemBorrar->Size = System::Drawing::Size(100, 13);
 			this->LejemBorrar->TabIndex = 30;
@@ -387,7 +415,7 @@ namespace GeneCounter {
 			this->LEjmSeparar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->LEjmSeparar->ForeColor = System::Drawing::Color::Crimson;
-			this->LEjmSeparar->Location = System::Drawing::Point(789, 416);
+			this->LEjmSeparar->Location = System::Drawing::Point(58, 65);
 			this->LEjmSeparar->Name = L"LEjmSeparar";
 			this->LEjmSeparar->Size = System::Drawing::Size(144, 13);
 			this->LEjmSeparar->TabIndex = 31;
@@ -397,7 +425,7 @@ namespace GeneCounter {
 			// 
 			this->Limportante->AutoSize = true;
 			this->Limportante->ForeColor = System::Drawing::Color::Crimson;
-			this->Limportante->Location = System::Drawing::Point(714, 186);
+			this->Limportante->Location = System::Drawing::Point(714, 164);
 			this->Limportante->Name = L"Limportante";
 			this->Limportante->Size = System::Drawing::Size(270, 13);
 			this->Limportante->TabIndex = 32;
@@ -449,43 +477,139 @@ namespace GeneCounter {
 			this->btnAnterior->UseVisualStyleBackColor = true;
 			this->btnAnterior->Click += gcnew System::EventHandler(this, &MyForm::btnAnterior_Click);
 			// 
+			// groupBoxPercentil
+			// 
+			this->groupBoxPercentil->Controls->Add(this->trackBarPercentil);
+			this->groupBoxPercentil->Controls->Add(this->Lpercentil);
+			this->groupBoxPercentil->Location = System::Drawing::Point(717, 50);
+			this->groupBoxPercentil->Name = L"groupBoxPercentil";
+			this->groupBoxPercentil->Size = System::Drawing::Size(267, 100);
+			this->groupBoxPercentil->TabIndex = 37;
+			this->groupBoxPercentil->TabStop = false;
+			this->groupBoxPercentil->Text = L" Paso 1: ";
+			// 
+			// groupBoxBorrar
+			// 
+			this->groupBoxBorrar->Controls->Add(this->ckBoxUnir);
+			this->groupBoxBorrar->Controls->Add(this->textBoxUnion1);
+			this->groupBoxBorrar->Controls->Add(this->textBoxUnion2);
+			this->groupBoxBorrar->Controls->Add(this->LUnir);
+			this->groupBoxBorrar->Controls->Add(this->LCon);
+			this->groupBoxBorrar->Controls->Add(this->ckBoxBorrar);
+			this->groupBoxBorrar->Controls->Add(this->txtBoxBorrar);
+			this->groupBoxBorrar->Controls->Add(this->LejemUnir);
+			this->groupBoxBorrar->Controls->Add(this->LejemBorrar);
+			this->groupBoxBorrar->Location = System::Drawing::Point(717, 191);
+			this->groupBoxBorrar->Name = L"groupBoxBorrar";
+			this->groupBoxBorrar->Size = System::Drawing::Size(267, 144);
+			this->groupBoxBorrar->TabIndex = 38;
+			this->groupBoxBorrar->TabStop = false;
+			this->groupBoxBorrar->Text = L" Parso 2: ";
+			// 
+			// groupBoxSeparar
+			// 
+			this->groupBoxSeparar->Controls->Add(this->ckBoxSeparar);
+			this->groupBoxSeparar->Controls->Add(this->txtBoxSepararIndice);
+			this->groupBoxSeparar->Controls->Add(this->txtBoxSepararPartes);
+			this->groupBoxSeparar->Controls->Add(this->LSeparar);
+			this->groupBoxSeparar->Controls->Add(this->LSepararEn);
+			this->groupBoxSeparar->Controls->Add(this->LEjmSeparar);
+			this->groupBoxSeparar->Location = System::Drawing::Point(717, 341);
+			this->groupBoxSeparar->Name = L"groupBoxSeparar";
+			this->groupBoxSeparar->Size = System::Drawing::Size(267, 104);
+			this->groupBoxSeparar->TabIndex = 39;
+			this->groupBoxSeparar->TabStop = false;
+			this->groupBoxSeparar->Text = L" Paso 3: ";
+			// 
+			// btnReiniciar
+			// 
+			this->btnReiniciar->Location = System::Drawing::Point(738, 495);
+			this->btnReiniciar->Name = L"btnReiniciar";
+			this->btnReiniciar->Size = System::Drawing::Size(75, 23);
+			this->btnReiniciar->TabIndex = 40;
+			this->btnReiniciar->Text = L"Reiniciar";
+			this->btnReiniciar->UseVisualStyleBackColor = true;
+			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->programaToolStripMenuItem,
+					this->guiaDeUsoToolStripMenuItem
+			});
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Size = System::Drawing::Size(990, 24);
+			this->menuStrip1->TabIndex = 41;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// programaToolStripMenuItem
+			// 
+			this->programaToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				this->añadirImágenesToolStripMenuItem,
+					this->reiniciarImagenActualToolStripMenuItem, this->colorDeLosNúmerosToolStripMenuItem
+			});
+			this->programaToolStripMenuItem->Name = L"programaToolStripMenuItem";
+			this->programaToolStripMenuItem->Size = System::Drawing::Size(71, 20);
+			this->programaToolStripMenuItem->Text = L"Programa";
+			// 
+			// guiaDeUsoToolStripMenuItem
+			// 
+			this->guiaDeUsoToolStripMenuItem->Name = L"guiaDeUsoToolStripMenuItem";
+			this->guiaDeUsoToolStripMenuItem->Size = System::Drawing::Size(82, 20);
+			this->guiaDeUsoToolStripMenuItem->Text = L"Guia de Uso";
+			// 
+			// añadirImágenesToolStripMenuItem
+			// 
+			this->añadirImágenesToolStripMenuItem->Name = L"añadirImágenesToolStripMenuItem";
+			this->añadirImágenesToolStripMenuItem->Size = System::Drawing::Size(197, 22);
+			this->añadirImágenesToolStripMenuItem->Text = L"Añadir imágenes";
+			// 
+			// reiniciarImagenActualToolStripMenuItem
+			// 
+			this->reiniciarImagenActualToolStripMenuItem->Name = L"reiniciarImagenActualToolStripMenuItem";
+			this->reiniciarImagenActualToolStripMenuItem->Size = System::Drawing::Size(197, 22);
+			this->reiniciarImagenActualToolStripMenuItem->Text = L"Reiniciar imagen actual";
+			// 
+			// colorDeLosNúmerosToolStripMenuItem
+			// 
+			this->colorDeLosNúmerosToolStripMenuItem->Name = L"colorDeLosNúmerosToolStripMenuItem";
+			this->colorDeLosNúmerosToolStripMenuItem->Size = System::Drawing::Size(197, 22);
+			this->colorDeLosNúmerosToolStripMenuItem->Text = L"Color de los números";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(990, 525);
+			this->Controls->Add(this->btnReiniciar);
+			this->Controls->Add(this->groupBoxSeparar);
+			this->Controls->Add(this->groupBoxBorrar);
+			this->Controls->Add(this->groupBoxPercentil);
 			this->Controls->Add(this->btnAnterior);
 			this->Controls->Add(this->btnSiguiente);
 			this->Controls->Add(this->indiceImagen);
 			this->Controls->Add(this->btnSeleccionar);
 			this->Controls->Add(this->Limportante);
-			this->Controls->Add(this->LEjmSeparar);
-			this->Controls->Add(this->LejemBorrar);
-			this->Controls->Add(this->LejemUnir);
 			this->Controls->Add(this->ckBoxCuadros);
-			this->Controls->Add(this->ckBoxSeparar);
-			this->Controls->Add(this->LSepararEn);
-			this->Controls->Add(this->LSeparar);
-			this->Controls->Add(this->txtBoxSepararPartes);
-			this->Controls->Add(this->txtBoxSepararIndice);
-			this->Controls->Add(this->txtBoxBorrar);
-			this->Controls->Add(this->ckBoxBorrar);
-			this->Controls->Add(this->ckBoxUnir);
-			this->Controls->Add(this->LCon);
-			this->Controls->Add(this->LUnir);
-			this->Controls->Add(this->textBoxUnion2);
-			this->Controls->Add(this->textBoxUnion1);
 			this->Controls->Add(this->btnGuardar);
 			this->Controls->Add(this->LNuemroTotal);
 			this->Controls->Add(this->Ltotal);
-			this->Controls->Add(this->trackBarPercentil);
 			this->Controls->Add(this->imgBox);
 			this->Controls->Add(this->btnContar);
-			this->Controls->Add(this->Lpercentil);
+			this->Controls->Add(this->menuStrip1);
+			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
 			this->Text = L"Contador de genes";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->EndInit();
+			this->groupBoxPercentil->ResumeLayout(false);
+			this->groupBoxPercentil->PerformLayout();
+			this->groupBoxBorrar->ResumeLayout(false);
+			this->groupBoxBorrar->PerformLayout();
+			this->groupBoxSeparar->ResumeLayout(false);
+			this->groupBoxSeparar->PerformLayout();
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
