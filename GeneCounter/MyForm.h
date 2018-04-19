@@ -528,6 +528,7 @@ namespace GeneCounter {
 			// 
 			// btnReiniciar
 			// 
+			this->btnReiniciar->Enabled = false;
 			this->btnReiniciar->Location = System::Drawing::Point(738, 495);
 			this->btnReiniciar->Name = L"btnReiniciar";
 			this->btnReiniciar->Size = System::Drawing::Size(75, 23);
@@ -535,7 +536,6 @@ namespace GeneCounter {
 			this->btnReiniciar->Text = L"Reiniciar";
 			this->btnReiniciar->UseVisualStyleBackColor = true;
 			this->btnReiniciar->Click += gcnew System::EventHandler(this, &MyForm::btnReiniciar_Click);
-			this->btnReiniciar->Enabled = false;
 			// 
 			// menuStrip1
 			// 
@@ -579,6 +579,7 @@ namespace GeneCounter {
 			this->colorDeLosNúmerosToolStripMenuItem->Name = L"colorDeLosNúmerosToolStripMenuItem";
 			this->colorDeLosNúmerosToolStripMenuItem->Size = System::Drawing::Size(197, 22);
 			this->colorDeLosNúmerosToolStripMenuItem->Text = L"Color de los números";
+			this->colorDeLosNúmerosToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::colorDeLosNúmerosToolStripMenuItem_Click);
 			// 
 			// guiaDeUsoToolStripMenuItem
 			// 
@@ -1169,6 +1170,17 @@ private: System::Void reiniciarImagenActualToolStripMenuItem_Click(System::Objec
 	ckBoxUnir->Enabled = false;
 	imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 	LNuemroTotal->Text = System::String::Concat("", 0);
+}
+private: System::Void colorDeLosNúmerosToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	colorDialogNumeros->ShowHelp = true;
+	//colorDialogNumeros->Color = textBoxUnion1->ForeColor;
+
+	if (colorDialogNumeros->ShowDialog() == ::System::Windows::Forms::DialogResult::OK)
+	{
+		red = colorDialogNumeros->Color.R;
+		green = colorDialogNumeros->Color.G;
+		blue = colorDialogNumeros->Color.B;
+	}
 }
 };
 }
