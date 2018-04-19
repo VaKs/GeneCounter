@@ -128,16 +128,18 @@
   </metadata>
   <data name="LGuia2.Text" xml:space="preserve">
     <value>Paso 1: Seleccionar el percentil a aplicar para cribar los resultados de detección automática.
-A más alto sea el valor del percentil menos se tendrán en cuenta las detecciones pequeñas
+Cuanto más alto sea el valor del percentil menos se tendrá en cuenta los genes de menor tamaño
 
-Tras este paso, hacer click en el botón [Contar / Actualizar] para mostrar los resultados, y posteriormente 
-repetir este paso si fuera necesario para ajustar la cuenta automática lo máximo posible.
+Trás este paso, hacer click en el botón [Contar / Actualizar] para mostrar los resultados, repetir
+posteriormente este paso si fuera necesario para ajustar la cuenta automática lo máximo posible
+con el percentil.
 
 Paso 2:  Unir o borrar índices si fuera necesario teniendo en cuenta las indicaciones y ejemplos
-marcados en rojo.
+marcados en rojo. Advertencia, una vez se realice el paso 3, el paso 2 no podrá volver a realizarse
+a no ser que se reinicie el proceso de conteo.
 
 Paso 3:  En caso de que se haya detectado varios cromosomas como uno solo, seleccionar la opción 
-Separar índice en esta opción especificar el índice que queramos separar  y posterior mente el número 
+Separar índice y especificar el índice del gen que queramos separar  y a su lado el número 
 de partes en las que lo queramos separar. Este paso al igual que los otros se puede realizar con una lista
 de índices siempre que se sigua la notación indicada en rojo.
 

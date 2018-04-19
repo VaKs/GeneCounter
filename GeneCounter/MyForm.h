@@ -36,6 +36,7 @@ namespace GeneCounter {
 	int green = 0;
 	int blue = 0;
 	int indexImgActual = -1;
+	boolean separado = false;
 	vector<string> rutas;
 	vector<string> nombreArchivos;
 	string archivoTemporalActual = "";
@@ -428,7 +429,7 @@ namespace GeneCounter {
 			this->LejemBorrar->Name = L"LejemBorrar";
 			this->LejemBorrar->Size = System::Drawing::Size(100, 13);
 			this->LejemBorrar->TabIndex = 30;
-			this->LejemBorrar->Text = L"Ej: [ 1; ]  ó  [ 2;3;4; ]";
+			this->LejemBorrar->Text = L"Ej: [ 1; ]  o  [ 2;3;4; ]";
 			this->LejemBorrar->TextAlign = System::Drawing::ContentAlignment::BottomCenter;
 			// 
 			// LEjmSeparar
@@ -441,7 +442,7 @@ namespace GeneCounter {
 			this->LEjmSeparar->Name = L"LEjmSeparar";
 			this->LEjmSeparar->Size = System::Drawing::Size(174, 26);
 			this->LEjmSeparar->TabIndex = 31;
-			this->LEjmSeparar->Text = L"Ej: Separar [ 1;2;..4; ]  En [ 2;3;..2; ]\r\nó Separar [ 1; ] En [ 3; ]";
+			this->LEjmSeparar->Text = L"Ej: Separar [ 1;2;..4; ]  En [ 2;3;..2; ]\r\no Separar [ 1; ] En [ 3; ]";
 			// 
 			// Limportante
 			// 
@@ -625,7 +626,7 @@ namespace GeneCounter {
 				static_cast<System::Byte>(0)));
 			this->LGuia2->Location = System::Drawing::Point(15, 46);
 			this->LGuia2->Name = L"LGuia2";
-			this->LGuia2->Size = System::Drawing::Size(581, 270);
+			this->LGuia2->Size = System::Drawing::Size(581, 300);
 			this->LGuia2->TabIndex = 2;
 			this->LGuia2->Text = resources->GetString(L"LGuia2.Text");
 			// 
@@ -642,7 +643,7 @@ namespace GeneCounter {
 			// 
 			// btnVolver
 			// 
-			this->btnVolver->Location = System::Drawing::Point(261, 336);
+			this->btnVolver->Location = System::Drawing::Point(261, 347);
 			this->btnVolver->Name = L"btnVolver";
 			this->btnVolver->Size = System::Drawing::Size(75, 23);
 			this->btnVolver->TabIndex = 0;
@@ -914,6 +915,8 @@ namespace GeneCounter {
 			ckBoxBorrar->Enabled = true;
 			ckBoxSeparar->Enabled = true;
 			ckBoxUnir->Enabled = true;
+			reiniciarImagenActualToolStripMenuItem->Enabled = true;
+			btnReiniciar->Enabled = true;
 		}
 		if (ckBoxBorrar->Checked || ckBoxUnir->Checked)
 		{
@@ -953,6 +956,10 @@ namespace GeneCounter {
 		if (ckBoxSeparar->Checked) 
 		{
 			setSeparacion();
+			ckBoxBorrar->Enabled = false;
+			ckBoxUnir->Enabled = false;
+			separado = true;
+
 			ckBoxSeparar->Checked = false;
 			txtBoxSepararIndice->Text = "";
 			txtBoxSepararPartes->Text = "";
@@ -1067,6 +1074,7 @@ namespace GeneCounter {
 			imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 
 			indiceImagen->Text = System::String::Concat(indexImgActual+1, " de ", nombreArchivos.size());
+			LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 		}
 		if (indexImgActual + 1 == nombreArchivos.size()) {
 			btnSiguiente->Enabled = false;
@@ -1089,10 +1097,14 @@ namespace GeneCounter {
 			txtBoxSepararIndice->Enabled = true;
 			txtBoxSepararPartes->Enabled = true;
 		}
-		else 
+		else if(!separado)
 		{
 			ckBoxBorrar->Enabled = true;
 			ckBoxUnir->Enabled = true;
+			txtBoxSepararIndice->Enabled = false;
+			txtBoxSepararPartes->Enabled = false;
+		}
+		else {
 			txtBoxSepararIndice->Enabled = false;
 			txtBoxSepararPartes->Enabled = false;
 		}
@@ -1189,6 +1201,7 @@ private: System::Void btnAnterior_Click(System::Object^  sender, System::EventAr
 		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 
 		indiceImagen->Text = System::String::Concat(indexImgActual + 1, " de ", nombreArchivos.size());
+		LNuemroTotal->Text = System::String::Concat("", numeroGenes);
 	}
 	if (indexImgActual == 0) {
 		btnAnterior->Enabled = false;
