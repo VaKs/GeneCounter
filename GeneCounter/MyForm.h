@@ -174,10 +174,10 @@ namespace GeneCounter {
 			this->btnReiniciar = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->programaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->guiaDeUsoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->añadirImágenesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->reiniciarImagenActualToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->colorDeLosNúmerosToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->guiaDeUsoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
 			this->groupBoxPercentil->SuspendLayout();
@@ -198,7 +198,7 @@ namespace GeneCounter {
 			// btnContar
 			// 
 			this->btnContar->Enabled = false;
-			this->btnContar->Location = System::Drawing::Point(723, 457);
+			this->btnContar->Location = System::Drawing::Point(717, 451);
 			this->btnContar->Name = L"btnContar";
 			this->btnContar->Size = System::Drawing::Size(267, 23);
 			this->btnContar->TabIndex = 2;
@@ -529,6 +529,7 @@ namespace GeneCounter {
 			this->btnReiniciar->TabIndex = 40;
 			this->btnReiniciar->Text = L"Reiniciar";
 			this->btnReiniciar->UseVisualStyleBackColor = true;
+			this->btnReiniciar->Click += gcnew System::EventHandler(this, &MyForm::btnReiniciar_Click);
 			// 
 			// menuStrip1
 			// 
@@ -552,29 +553,31 @@ namespace GeneCounter {
 			this->programaToolStripMenuItem->Size = System::Drawing::Size(71, 20);
 			this->programaToolStripMenuItem->Text = L"Programa";
 			// 
-			// guiaDeUsoToolStripMenuItem
-			// 
-			this->guiaDeUsoToolStripMenuItem->Name = L"guiaDeUsoToolStripMenuItem";
-			this->guiaDeUsoToolStripMenuItem->Size = System::Drawing::Size(82, 20);
-			this->guiaDeUsoToolStripMenuItem->Text = L"Guia de Uso";
-			// 
 			// añadirImágenesToolStripMenuItem
 			// 
 			this->añadirImágenesToolStripMenuItem->Name = L"añadirImágenesToolStripMenuItem";
 			this->añadirImágenesToolStripMenuItem->Size = System::Drawing::Size(197, 22);
 			this->añadirImágenesToolStripMenuItem->Text = L"Añadir imágenes";
+			this->añadirImágenesToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::añadirImágenesToolStripMenuItem_Click);
 			// 
 			// reiniciarImagenActualToolStripMenuItem
 			// 
 			this->reiniciarImagenActualToolStripMenuItem->Name = L"reiniciarImagenActualToolStripMenuItem";
 			this->reiniciarImagenActualToolStripMenuItem->Size = System::Drawing::Size(197, 22);
 			this->reiniciarImagenActualToolStripMenuItem->Text = L"Reiniciar imagen actual";
+			this->reiniciarImagenActualToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::reiniciarImagenActualToolStripMenuItem_Click);
 			// 
 			// colorDeLosNúmerosToolStripMenuItem
 			// 
 			this->colorDeLosNúmerosToolStripMenuItem->Name = L"colorDeLosNúmerosToolStripMenuItem";
 			this->colorDeLosNúmerosToolStripMenuItem->Size = System::Drawing::Size(197, 22);
 			this->colorDeLosNúmerosToolStripMenuItem->Text = L"Color de los números";
+			// 
+			// guiaDeUsoToolStripMenuItem
+			// 
+			this->guiaDeUsoToolStripMenuItem->Name = L"guiaDeUsoToolStripMenuItem";
+			this->guiaDeUsoToolStripMenuItem->Size = System::Drawing::Size(82, 20);
+			this->guiaDeUsoToolStripMenuItem->Text = L"Guia de Uso";
 			// 
 			// MyForm
 			// 
@@ -831,6 +834,10 @@ namespace GeneCounter {
 		{
 			bounding_rects = getBoundings(img);
 			imgBounded = true;
+			btnGuardar->Enabled = true;
+			ckBoxBorrar->Enabled = true;
+			ckBoxSeparar->Enabled = true;
+			ckBoxUnir->Enabled = true;
 		}
 		if (ckBoxBorrar->Checked || ckBoxUnir->Checked)
 		{
@@ -893,13 +900,6 @@ namespace GeneCounter {
 		imwrite(archivoTemporalActual, img);
 		imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(archivoTemporalActual.c_str()));
 		LNuemroTotal->Text = System::String::Concat("", numeroGenes);
-				 /*
-				 imgBox->Image = gcnew Bitmap(img.size().width,
-											  img.size().height,
-											  img.step,
-											  Imaging::PixelFormat::Format24bppRgb,
-											  (IntPtr)img.data);
-				 */
 	}
 	void saveImage(Mat img) {
 		imwrite(rutaContadas + nombreArchivoActual, img);
@@ -910,7 +910,6 @@ namespace GeneCounter {
 		Mat img = imread(archivoTemporalActual, CV_LOAD_IMAGE_COLOR);
 		saveImage(img);
 		nextImage();
-//		diTemp->Delete(true); // delete temp folder and all inside files
 	}
 	void EnablePannel() {
 		btnAnterior->Enabled = true;
@@ -921,16 +920,17 @@ namespace GeneCounter {
 		ckBoxUnir->Enabled = true;
 		trackBarPercentil->Enabled = true;
 		btnContar->Enabled = true;
-		btnGuardar->Enabled = true;
 		btnSeleccionar->Visible = false;
+		btnReiniciar->Enabled = true;
 
 	}
 	void DisablePannel() {
 		btnAnterior->Enabled = false;
+		btnReiniciar->Enabled = false;
 		btnSiguiente->Enabled = false;
-		ckBoxBorrar->Enabled = false;
 		ckBoxCuadros->Enabled = false;
-		ckBoxSeparar->Enabled = false;
+		ckBoxBorrar->Enabled = false;
+		ckBoxSeparar->Enabled = false;		
 		ckBoxUnir->Enabled = false;
 		txtBoxBorrar->Enabled = false;
 		txtBoxSepararIndice->Enabled = false;
@@ -972,6 +972,11 @@ namespace GeneCounter {
 			numeroGenes = 0;
 			percentilSelecionado = 0;
 			imgBounded = false;
+			btnGuardar->Enabled = false;
+			ckBoxBorrar->Enabled = false;
+			ckBoxSeparar->Enabled = false;
+			ckBoxUnir->Enabled = false;
+
 			indiceASeparar = nullIntVector;
 			numPartesASeparar = nullIntVector;
 
@@ -979,10 +984,11 @@ namespace GeneCounter {
 
 			indiceImagen->Text = System::String::Concat(indexImgActual+1, " de ", nombreArchivos.size());
 		}
-		if (indexImgActual+1 == nombreArchivos.size()) {
+		if (indexImgActual + 1 == nombreArchivos.size()) {
 			btnSiguiente->Enabled = false;
+			btnAnterior->Enabled = true;
 		}
-		else 
+		else
 		{
 			btnSiguiente->Enabled = true;
 			btnAnterior->Enabled = true;
@@ -1092,6 +1098,7 @@ private: System::Void btnAnterior_Click(System::Object^  sender, System::EventAr
 		numeroGenes = 0;
 		percentilSelecionado = 0;
 		imgBounded = false;
+		btnGuardar->Enabled = false;
 		indiceASeparar = nullIntVector;
 		numPartesASeparar = nullIntVector;
 
@@ -1101,12 +1108,59 @@ private: System::Void btnAnterior_Click(System::Object^  sender, System::EventAr
 	}
 	if (indexImgActual == 0) {
 		btnAnterior->Enabled = false;
+		btnSiguiente->Enabled = true;
 	}
 	else
 	{
 		btnSiguiente->Enabled = true;
 		btnAnterior->Enabled = true;
 	}
+}
+private: System::Void añadirImágenesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	System::String^ rawRuta;
+	System::String^ fileName;
+	System::String^ path;
+	string archivo;
+
+	Stream^ stream;
+	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		stream = openFileDialog->OpenFile();
+		if (stream != nullptr) {
+
+			for each (System::String^ file in openFileDialog->FileNames)
+			{
+				rawRuta = file;
+				fileName = Path::GetFileName(rawRuta);
+				path = rawRuta->Substring(0, (rawRuta->Length) - (fileName->Length));
+				MarshalString(path, ruta);
+				MarshalString(fileName, archivo);
+
+				rutas.push_back(ruta);
+				nombreArchivos.push_back(archivo);
+			}
+		}
+		stream->Close();
+		indiceImagen->Text = System::String::Concat(indexImgActual + 1, " de ", nombreArchivos.size());
+	}
+}
+private: System::Void btnReiniciar_Click(System::Object^  sender, System::EventArgs^  e) {
+	imgBounded = false;
+	btnGuardar->Enabled = false;
+	ckBoxBorrar->Enabled = false;
+	ckBoxSeparar->Enabled = false;
+	ckBoxUnir->Enabled = false;
+	imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
+	LNuemroTotal->Text = System::String::Concat("", 0);
+
+}
+private: System::Void reiniciarImagenActualToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	imgBounded = false;
+	btnGuardar->Enabled = false;
+	ckBoxBorrar->Enabled = false;
+	ckBoxSeparar->Enabled = false;
+	ckBoxUnir->Enabled = false;
+	imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
+	LNuemroTotal->Text = System::String::Concat("", 0);
 }
 };
 }
