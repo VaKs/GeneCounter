@@ -533,6 +533,7 @@ namespace GeneCounter {
 			// 
 			// menuStrip1
 			// 
+			this->menuStrip1->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->programaToolStripMenuItem,
 					this->guiaDeUsoToolStripMenuItem
@@ -583,6 +584,7 @@ namespace GeneCounter {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(990, 525);
 			this->Controls->Add(this->btnReiniciar);
 			this->Controls->Add(this->groupBoxSeparar);
