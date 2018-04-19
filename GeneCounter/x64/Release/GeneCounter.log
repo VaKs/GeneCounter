@@ -1,8 +1,8 @@
 ﻿  MyForm.cpp
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(713): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(725): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(771): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(776): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(714): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(726): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(772): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(777): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(1252): warning C4965: conversión boxing implícita de entero 0; utilice nullptr o conversión explícita
 c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(1264): warning C4965: conversión boxing implícita de entero 0; utilice nullptr o conversión explícita
 c:\opencv\build\include\opencv2\core\cvstd.hpp(575): warning C4793: 'cv::String::String': función compilada como nativa :

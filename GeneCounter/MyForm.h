@@ -591,6 +591,7 @@ namespace GeneCounter {
 			this->reiniciarImagenActualToolStripMenuItem->Size = System::Drawing::Size(197, 22);
 			this->reiniciarImagenActualToolStripMenuItem->Text = L"Reiniciar imagen actual";
 			this->reiniciarImagenActualToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::reiniciarImagenActualToolStripMenuItem_Click);
+			this->reiniciarImagenActualToolStripMenuItem->Enabled = false;
 			// 
 			// colorDeLosNúmerosToolStripMenuItem
 			// 
@@ -1000,7 +1001,6 @@ namespace GeneCounter {
 		ckBoxCuadros->Enabled = true;
 		trackBarPercentil->Enabled = true;
 		btnContar->Enabled = true;
-		btnReiniciar->Enabled = true;
 		if (rutas.size() != 0) {
 			btnSeleccionar->Visible = false;
 		}
