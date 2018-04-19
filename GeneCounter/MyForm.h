@@ -32,6 +32,9 @@ namespace GeneCounter {
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
+	int red = 255;
+	int green = 0;
+	int blue = 0;
 	int indexImgActual = -1;
 	vector<string> rutas;
 	vector<string> nombreArchivos;
@@ -118,6 +121,7 @@ namespace GeneCounter {
 	private: System::Windows::Forms::ToolStripMenuItem^  reiniciarImagenActualToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  colorDeLosNúmerosToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  guiaDeUsoToolStripMenuItem;
+	private: System::Windows::Forms::ColorDialog^  colorDialogNumeros;
 
 
 
@@ -178,6 +182,7 @@ namespace GeneCounter {
 			this->reiniciarImagenActualToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->colorDeLosNúmerosToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->guiaDeUsoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->colorDialogNumeros = (gcnew System::Windows::Forms::ColorDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
 			this->groupBoxPercentil->SuspendLayout();
@@ -530,6 +535,7 @@ namespace GeneCounter {
 			this->btnReiniciar->Text = L"Reiniciar";
 			this->btnReiniciar->UseVisualStyleBackColor = true;
 			this->btnReiniciar->Click += gcnew System::EventHandler(this, &MyForm::btnReiniciar_Click);
+			this->btnReiniciar->Enabled = false;
 			// 
 			// menuStrip1
 			// 
@@ -693,12 +699,12 @@ namespace GeneCounter {
 					int index = getIndex(indiceASeparar, numeroGenes);
 					for (int j = 0; j < numPartesASeparar.at(index) ; j++)
 					{
-						putText(src, to_string(numeroGenes), Point2f(bounding_rect.x + j*20 , bounding_rect.y + j*30), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
+						putText(src, to_string(numeroGenes), Point2f(bounding_rect.x + j*20 , bounding_rect.y + j*30), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(blue, green, red), 2);
 						numeroGenes++;
 					}
 				}
 				else { // si no, simplemente se escribe el número
-					putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(0, 0, 255), 2);
+					putText(src, to_string(numeroGenes), Point2f(bounding_rect.x, bounding_rect.y + bounding_rect.height), FONT_HERSHEY_SCRIPT_SIMPLEX, 1, Scalar(blue, green, red), 2);
 					numeroGenes++;
 				}
 			}
