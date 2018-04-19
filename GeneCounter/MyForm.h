@@ -122,6 +122,17 @@ namespace GeneCounter {
 	private: System::Windows::Forms::ToolStripMenuItem^  colorDeLosNúmerosToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  guiaDeUsoToolStripMenuItem;
 	private: System::Windows::Forms::ColorDialog^  colorDialogNumeros;
+	private: System::Windows::Forms::Panel^  panelGuia;
+	private: System::Windows::Forms::Button^  btnVolver;
+	private: System::Windows::Forms::Label^  LGuia1;
+
+	private: System::Windows::Forms::Label^  LGuia2;
+
+
+
+
+
+
 
 
 
@@ -143,6 +154,7 @@ namespace GeneCounter {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->Lpercentil = (gcnew System::Windows::Forms::Label());
 			this->btnContar = (gcnew System::Windows::Forms::Button());
 			this->imgBox = (gcnew System::Windows::Forms::PictureBox());
@@ -183,12 +195,17 @@ namespace GeneCounter {
 			this->colorDeLosNúmerosToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->guiaDeUsoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->colorDialogNumeros = (gcnew System::Windows::Forms::ColorDialog());
+			this->panelGuia = (gcnew System::Windows::Forms::Panel());
+			this->LGuia2 = (gcnew System::Windows::Forms::Label());
+			this->LGuia1 = (gcnew System::Windows::Forms::Label());
+			this->btnVolver = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->imgBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarPercentil))->BeginInit();
 			this->groupBoxPercentil->SuspendLayout();
 			this->groupBoxBorrar->SuspendLayout();
 			this->groupBoxSeparar->SuspendLayout();
 			this->menuStrip1->SuspendLayout();
+			this->panelGuia->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// Lpercentil
@@ -260,7 +277,7 @@ namespace GeneCounter {
 			this->btnGuardar->Enabled = false;
 			this->btnGuardar->Location = System::Drawing::Point(842, 495);
 			this->btnGuardar->Name = L"btnGuardar";
-			this->btnGuardar->Size = System::Drawing::Size(134, 23);
+			this->btnGuardar->Size = System::Drawing::Size(142, 23);
 			this->btnGuardar->TabIndex = 13;
 			this->btnGuardar->Text = L"Guardar y siguiente >";
 			this->btnGuardar->UseVisualStyleBackColor = true;
@@ -422,9 +439,9 @@ namespace GeneCounter {
 			this->LEjmSeparar->ForeColor = System::Drawing::Color::Crimson;
 			this->LEjmSeparar->Location = System::Drawing::Point(58, 65);
 			this->LEjmSeparar->Name = L"LEjmSeparar";
-			this->LEjmSeparar->Size = System::Drawing::Size(144, 13);
+			this->LEjmSeparar->Size = System::Drawing::Size(174, 26);
 			this->LEjmSeparar->TabIndex = 31;
-			this->LEjmSeparar->Text = L"Ej: Separar [ 1;2; ]  En [ 2;3; ]";
+			this->LEjmSeparar->Text = L"Ej: Separar [ 1;2;..4; ]  En [ 2;3;..2; ]\r\nó Separar [ 1; ] En [ 3; ]";
 			// 
 			// Limportante
 			// 
@@ -529,9 +546,9 @@ namespace GeneCounter {
 			// btnReiniciar
 			// 
 			this->btnReiniciar->Enabled = false;
-			this->btnReiniciar->Location = System::Drawing::Point(738, 495);
+			this->btnReiniciar->Location = System::Drawing::Point(717, 495);
 			this->btnReiniciar->Name = L"btnReiniciar";
-			this->btnReiniciar->Size = System::Drawing::Size(75, 23);
+			this->btnReiniciar->Size = System::Drawing::Size(117, 23);
 			this->btnReiniciar->TabIndex = 40;
 			this->btnReiniciar->Text = L"Reiniciar";
 			this->btnReiniciar->UseVisualStyleBackColor = true;
@@ -586,6 +603,53 @@ namespace GeneCounter {
 			this->guiaDeUsoToolStripMenuItem->Name = L"guiaDeUsoToolStripMenuItem";
 			this->guiaDeUsoToolStripMenuItem->Size = System::Drawing::Size(82, 20);
 			this->guiaDeUsoToolStripMenuItem->Text = L"Guia de Uso";
+			this->guiaDeUsoToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::guiaDeUsoToolStripMenuItem_Click);
+			// 
+			// panelGuia
+			// 
+			this->panelGuia->BackColor = System::Drawing::Color::White;
+			this->panelGuia->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panelGuia->Controls->Add(this->LGuia2);
+			this->panelGuia->Controls->Add(this->LGuia1);
+			this->panelGuia->Controls->Add(this->btnVolver);
+			this->panelGuia->Location = System::Drawing::Point(167, 69);
+			this->panelGuia->Name = L"panelGuia";
+			this->panelGuia->Size = System::Drawing::Size(614, 393);
+			this->panelGuia->TabIndex = 42;
+			this->panelGuia->Visible = false;
+			// 
+			// LGuia2
+			// 
+			this->LGuia2->AutoSize = true;
+			this->LGuia2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->LGuia2->Location = System::Drawing::Point(15, 46);
+			this->LGuia2->Name = L"LGuia2";
+			this->LGuia2->Size = System::Drawing::Size(581, 270);
+			this->LGuia2->TabIndex = 2;
+			this->LGuia2->Text = resources->GetString(L"LGuia2.Text");
+			// 
+			// LGuia1
+			// 
+			this->LGuia1->AutoSize = true;
+			this->LGuia1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->LGuia1->Location = System::Drawing::Point(192, 9);
+			this->LGuia1->Name = L"LGuia1";
+			this->LGuia1->Size = System::Drawing::Size(203, 31);
+			this->LGuia1->TabIndex = 1;
+			this->LGuia1->Text = L"GUIA DE USO";
+			// 
+			// btnVolver
+			// 
+			this->btnVolver->Location = System::Drawing::Point(261, 336);
+			this->btnVolver->Name = L"btnVolver";
+			this->btnVolver->Size = System::Drawing::Size(75, 23);
+			this->btnVolver->TabIndex = 0;
+			this->btnVolver->Text = L"Volver";
+			this->btnVolver->UseVisualStyleBackColor = true;
+			this->btnVolver->Visible = false;
+			this->btnVolver->Click += gcnew System::EventHandler(this, &MyForm::btnVolver_Click);
 			// 
 			// MyForm
 			// 
@@ -593,6 +657,7 @@ namespace GeneCounter {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(990, 525);
+			this->Controls->Add(this->panelGuia);
 			this->Controls->Add(this->btnReiniciar);
 			this->Controls->Add(this->groupBoxSeparar);
 			this->Controls->Add(this->groupBoxBorrar);
@@ -622,6 +687,8 @@ namespace GeneCounter {
 			this->groupBoxSeparar->PerformLayout();
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
+			this->panelGuia->ResumeLayout(false);
+			this->panelGuia->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -923,14 +990,21 @@ namespace GeneCounter {
 	void EnablePannel() {
 		btnAnterior->Enabled = true;
 		btnSiguiente->Enabled = true;
-		ckBoxBorrar->Enabled = true;
 		ckBoxCuadros->Enabled = true;
-		ckBoxSeparar->Enabled = true;
-		ckBoxUnir->Enabled = true;
 		trackBarPercentil->Enabled = true;
 		btnContar->Enabled = true;
-		btnSeleccionar->Visible = false;
 		btnReiniciar->Enabled = true;
+		if (rutas.size() != 0) {
+			btnSeleccionar->Visible = false;
+		}
+		if (imgBounded) {
+			btnGuardar->Enabled = true;
+			ckBoxBorrar->Enabled = true;
+			ckBoxSeparar->Enabled = true;
+			ckBoxUnir->Enabled = true;
+			reiniciarImagenActualToolStripMenuItem->Enabled = true;
+			btnReiniciar->Enabled = true;
+		}
 
 	}
 	void DisablePannel() {
@@ -950,6 +1024,7 @@ namespace GeneCounter {
 		btnContar->Enabled = false;
 		btnGuardar->Enabled = false;
 		btnSeleccionar->Visible = true;
+		reiniciarImagenActualToolStripMenuItem->Enabled = false;
 
 
 	}
@@ -1158,6 +1233,8 @@ private: System::Void btnReiniciar_Click(System::Object^  sender, System::EventA
 	ckBoxBorrar->Enabled = false;
 	ckBoxSeparar->Enabled = false;
 	ckBoxUnir->Enabled = false;
+	reiniciarImagenActualToolStripMenuItem->Enabled = false;
+	btnReiniciar->Enabled = false;
 	imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 	LNuemroTotal->Text = System::String::Concat("", 0);
 
@@ -1168,6 +1245,8 @@ private: System::Void reiniciarImagenActualToolStripMenuItem_Click(System::Objec
 	ckBoxBorrar->Enabled = false;
 	ckBoxSeparar->Enabled = false;
 	ckBoxUnir->Enabled = false;
+	reiniciarImagenActualToolStripMenuItem->Enabled = false;
+	btnReiniciar->Enabled = false;
 	imgBox->Image = System::Drawing::Image::FromFile(gcnew System::String(rutaConImagen.c_str()));
 	LNuemroTotal->Text = System::String::Concat("", 0);
 }
@@ -1181,6 +1260,20 @@ private: System::Void colorDeLosNúmerosToolStripMenuItem_Click(System::Object^  
 		green = colorDialogNumeros->Color.G;
 		blue = colorDialogNumeros->Color.B;
 	}
+}
+private: System::Void guiaDeUsoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	panelGuia->Visible = true;
+	btnVolver->Visible = true;
+	LGuia1->Visible = true;
+
+	DisablePannel();
+}
+private: System::Void btnVolver_Click(System::Object^  sender, System::EventArgs^  e) {
+	panelGuia->Visible = false;
+	btnVolver->Visible = false;
+	LGuia1->Visible = false;
+
+	EnablePannel();
 }
 };
 }

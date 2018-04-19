@@ -284,7 +284,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:GeneCounterSetUp"
+        "ProductName" = "8:GeneCounter"
         "ProductCode" = "8:{B4450130-6F27-44F3-BC91-D2141A685EF1}"
         "PackageCode" = "8:{80059BC9-33EF-47B2-B31A-3007F738DA99}"
         "UpgradeCode" = "8:{F1EE5CA4-D5C9-4C6A-88A8-1EDA7497FC98}"

@@ -1,10 +1,10 @@
 ﻿  MyForm.cpp
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(645): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(657): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(703): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(708): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(1162): warning C4965: conversión boxing implícita de entero 0; utilice nullptr o conversión explícita
-c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(1172): warning C4965: conversión boxing implícita de entero 0; utilice nullptr o conversión explícita
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(712): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(724): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(770): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(775): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(1239): warning C4965: conversión boxing implícita de entero 0; utilice nullptr o conversión explícita
+c:\users\vaks\desktop\desarrollo\workspace\genecounter\genecounter\myform.h(1251): warning C4965: conversión boxing implícita de entero 0; utilice nullptr o conversión explícita
 c:\opencv\build\include\opencv2\core\cvstd.hpp(575): warning C4793: 'cv::String::String': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\cuda.inl.hpp(105): warning C4793: 'cv::cuda::GpuMat::GpuMat': función compilada como nativa :
@@ -29,4 +29,5 @@ c:\opencv\build\include\opencv2\core\ptr.inl.hpp(72): warning C4793: 'cv::detail
   	Se encontró un elemento intrínseco no admitido en código administrado
 c:\opencv\build\include\opencv2\core\cvstd.hpp(657): warning C4793: 'cv::String::operator=': función compilada como nativa :
   	Se encontró un elemento intrínseco no admitido en código administrado
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
   GeneCounter.vcxproj -> C:\Users\vaks\Desktop\Desarrollo\Workspace\geneCounter\x64\Release\GeneCounter.exe

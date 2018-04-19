@@ -126,4 +126,25 @@
   <metadata name="colorDialogNumeros.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>265, 17</value>
   </metadata>
+  <data name="LGuia2.Text" xml:space="preserve">
+    <value>Paso 1: Seleccionar el percentil a aplicar para cribar los resultados de detección automática.
+A más alto sea el valor del percentil menos se tendrán en cuenta las detecciones pequeñas
+
+Tras este paso, hacer click en el botón [Contar / Actualizar] para mostrar los resultados, y posteriormente 
+repetir este paso si fuera necesario para ajustar la cuenta automática lo máximo posible.
+
+Paso 2:  Unir o borrar índices si fuera necesario teniendo en cuenta las indicaciones y ejemplos
+marcados en rojo.
+
+Paso 3:  En caso de que se haya detectado varios cromosomas como uno solo, seleccionar la opción 
+Separar índice en esta opción especificar el índice que queramos separar  y posterior mente el número 
+de partes en las que lo queramos separar. Este paso al igual que los otros se puede realizar con una lista
+de índices siempre que se sigua la notación indicada en rojo.
+
+Cuando se considere que la imágen está adecuadamente contada pulsar el botón [Guardar y siguiente &gt;]
+para almacenar la imagen. Las imágenes se almacenarán en una carpeta llamada "contadas" situada
+dentro de la carpeta que contenga la imagen original.
+
+</value>
+  </data>
 </root>
